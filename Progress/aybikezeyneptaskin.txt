@@ -1,1 +1,6 @@
+WEEK 9 (Nov 21 - Nov 27):
+- Finalizing the ER diagram for database review
+- Finalizing the group members role distribution
 
+WEEK 10 (Nov 28 - Dec 4):
+- Dataset csv files are added to the postgre server
