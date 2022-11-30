@@ -1,1 +1,11 @@
-
+
+WEEK 9 (Nov 21 - Nov 27):
+- Finalizing the ER diagram for database review
+- Finalizing the group members role distribution
+- Creation of GitHub requirements
+
+WEEK 10 (Nov 28 - Dec 4):
+- The database is created using PostgreSQL.
+- Database connection is added to Flask page.
+
+
