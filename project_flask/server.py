@@ -19,11 +19,21 @@ def home_page():
     day_name = today.strftime("%A")
     return render_template("home.html", day=day_name)
 
-
 @app.route("/games")
-def movies_page():
+def games_page():
     return render_template("games.html")
 
+@app.route("/price_info")
+def price_info_page():
+    return render_template("price_info.html")
+
+@app.route("/games/requirements")
+def requirements_page():
+    return render_template("requirements.html")
+
+@app.route("/games/user_info")
+def user_info_page():
+    return render_template("user_info.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
