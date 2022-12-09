@@ -10,55 +10,61 @@ if __name__=="__main__":
         cursor=connection.cursor()
 
         createTable = """CREATE TABLE IF NOT EXISTS Main_Table(
-            response_id INTEGER PRIMARY KEY NOT NULL,
-            game_id INTEGER NOT NULL,
+            game_id INTEGER PRIMARY KEY NOT NULL,
+            response_id INTEGER NOT NULL,
             query_name VARCHAR(50),
             release_date VARCHAR(15),
             required_age INTEGER,
             metacritic INTEGER,
-            about_text TEXT
-             
+            about_text TEXT 
         )"""
         cursor.execute(createTable)
 
         createTable = """CREATE TABLE IF NOT EXISTS Additional_game_info(
-            game_id INTEGER PRIMARY KEY NOT NULL,
+            gameinfo_Id SERIAL PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
             background VARCHAR(150),
             headerimage VARCHAR(150),
             supporturl VARCHAR(100),
             website VARCHAR(100),
             recomendationcount INTEGER,
             steamspyowners INTEGER,
-            steamspyplayersestimate INTEGER
+            steamspyplayersestimate INTEGER,
+            CONSTRAINT fk_additional FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)
 
         createTable = """CREATE TABLE IF NOT EXISTS Price_Info(
-            game_id INTEGER PRIMARY KEY NOT NULL,
+            price_Id SERIAL PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
             isFree BOOLEAN,
             freeveravail BOOLEAN,
             pricecurrency VARCHAR(30),
             priceinitial INTEGER,
             pricefinal INTEGER,
             purchassesavail BOOLEAN,
-            subscriptionavail BOOLEAN
+            subscriptionavail BOOLEAN,
+            CONSTRAINT fk_price FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)
 
         createTable = """CREATE TABLE IF NOT EXISTS Platform_Requirements(
-            game_id INTEGER PRIMARY KEY NOT NULL,
+            platform_Id SERIAL PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
             response_id INTEGER,
             platformwindows BOOLEAN,
             platformlinux BOOLEAN,
             platformmac BOOLEAN,
             pcminreqtext VARCHAR(150),
             linuxminreqtext VARCHAR(150),
-            macminreqtext VARCHAR(150)
+            macminreqtext VARCHAR(150),
+            CONSTRAINT fk_platform FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)
 
         createTable = """CREATE TABLE IF NOT EXISTS Genre(
-            game_id INTEGER PRIMARY KEY NOT NULL,
+            genre_Id SERIAL PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
             GenreIsNonGame BOOLEAN,
             GenreIsIndie BOOLEAN,
             GenreIsAction BOOLEAN,
@@ -71,9 +77,68 @@ if __name__=="__main__":
             GenreIsFreeToPlay BOOLEAN,
             GenreIsSports BOOLEAN,
             GenreIsRacing BOOLEAN,
-            GenreIsMassivelyMultiplayer BOOLEAN
+            GenreIsMassivelyMultiplayer BOOLEAN,
+            CONSTRAINT fk_genre FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)
+
+        createTable = """CREATE TABLE IF NOT EXISTS Reviews(
+            review_id INTEGER PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
+            language VARCHAR(30),
+            review VARCHAR(250),
+            timestamp_created INTEGER,
+            votes_helpful INETEGER,
+            votes_funny INTEGER,
+            recommended INETEGER,
+            author_steam_id INTEGER NOT NULL,
+            CONSTRAINT fk_reviews FOREIGN KEY(author_steam_id) REFERENCES Author(steam_id) ON DELETE CASCADE 
+            CONSTRAINT fk_reviewid FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
+        )"""
+        cursor.execute(createTable)   
+
+
+        createTable = """CREATE TABLE IF NOT EXISTS Author(
+            steam_id INTEGER PRIMARY KEY NOT NULL,
+            num_games_owned INTEGER,
+            num_reviews INETEGER,
+            playtime_forever FLOAT,
+            playtime_last_two_weeks FLOAT,
+            last_played FLOAT
+        )"""
+        cursor.execute(createTable)   
+
+
+        createTable = """CREATE TABLE IF NOT EXISTS Game_Tags(
+            tags_Id SERIAL PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
+            addictive INTEGER,
+            adventure INTEGER,
+            co_op INTEGER,
+            comedy INTEGER,
+            crime INTEGER,
+            drama INTEGER,
+            dystopian_ INTEGER,
+            education INTEGER,
+            emotional INTEGER,
+            epic INTEGER,
+            family_friendly INTEGER,
+            farming INTEGER,
+            fighting INTEGER,
+            flight INTEGER,
+            football INTEGER,
+            funny INTEGER,
+            gambling INTEGER,
+            hacking INTEGER,
+            horror INTEGER,
+            indie INTEGER,
+            magic INTEGER,
+            mythology INTEGER,
+            platformer INTEGER,
+            rpg INTEGER,
+            shooter INTEGER
+        )"""
+        cursor.execute(createTable)   
      
 
     file = open("games-features.csv",encoding="utf-8")
@@ -98,19 +163,19 @@ if __name__=="__main__":
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
         for i in range(0, 13360):
-            response_id=rows[i][0]
-            game_id=rows[i][1]
+            game_id=rows[i][0]
+            response_id=rows[i][1]
             query_name=rows[i][2]
             release_date=rows[i][3]
             required_age=rows[i][4]
             metacritic=rows[i][5]
             about_text=rows[i][33]
             
-            insert="""INSERT INTO Main_Table (response_id, game_id, query_name, release_date, required_age, metacritic,about_text) VALUES(
+            insert="""INSERT INTO Main_Table (game_id, response_id, query_name, release_date, required_age, metacritic,about_text) VALUES(
                 %s,%s,%s,%s,%s
             )"""
 
-            cursor.execute(insert, (response_id, game_id, query_name, release_date, required_age, metacritic,about_text))
+            cursor.execute(insert, (game_id, response_id, query_name, release_date, required_age, metacritic,about_text))
             connection.commit()
 
     with dbapi2.connect(dsn) as connection:
@@ -125,6 +190,7 @@ if __name__=="__main__":
             steamspyowners=rows[i][7]
             steamspyplayersestimate=rows[i][8]
             
+            #surrogate keys???
             insert="""INSERT INTO Additional_game_info (game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES(
                 %s,%s,%s,%s,%s,%s,%s,%s
             )"""
@@ -194,3 +260,124 @@ if __name__=="__main__":
            
             cursor.execute(insert, (game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext))
             connection.commit()
+
+    file = open("steam_reviews.csv",encoding="utf-8")
+    csvread = csv.reader(file)
+    header = next(csvread) #read header column
+
+    #some of them may need to have author. to the beginning to match
+    columns = ['app_id', 'review_id','language','review','timestamp_created','recommended','votes_helpful','votes_funny','steamid','num_games_owned','num_reviews','playtime_forever','playtime_last_two_weeks','last_played']
+    rows = []
+    for i, head in enumerate(header):
+        for j, col in enumerate(columns):
+            if(head == col):
+                columns[j] = (col, i)
+
+    for row in csvread:
+        new_data = []
+        for column_name, column_index in columns:
+            new_data.append(row[column_index])
+        rows.append(new_data)
+
+    file.close()
+
+    with dbapi2.connect(dsn) as connection:
+        cursor=connection.cursor()
+        #row number??????
+        for i in range(0, 217000000):
+            review_id=rows[i][1]
+            game_id=rows[i][0]
+            language=rows[i][2]
+            review=rows[i][3]
+            timestamp_created=rows[i][4]
+            votes_helpful=rows[i][6]
+            votes_funny=rows[i][7]
+            recommended=rows[i][5]
+            author_steam_id=rows[i][8]
+            
+            insert="""INSERT INTO Reviews(review_id, game_id, language, review, timestamp_created, votes_helpful,votes_funny,recommended,author_steam_id) VALUES(
+                %s,%s,%s,%s,%s,%s,%s,%s,%s
+            )"""
+           
+            cursor.execute(insert, (review_id, game_id, language, review, timestamp_created, votes_helpful,votes_funny,recommended,author_steam_id))
+            connection.commit()
+
+    with dbapi2.connect(dsn) as connection:
+        cursor=connection.cursor()
+        #row number??????
+        for i in range(0, 217000000):
+            steam_id=rows[i][8]
+            num_games_owned=rows[i][9]
+            num_reviews=rows[i][10]
+            playtime_forever=rows[i][11]
+            playtime_last_two_weeks=rows[i][12]
+            last_played=rows[i][13]
+            
+            insert="""INSERT INTO Author(steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played) VALUES(
+                %s,%s,%s,%s,%s,%s
+            )"""
+           
+            cursor.execute(insert, (steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played))
+            connection.commit()
+
+    
+    file = open("steamspy_tag_data.csv",encoding="utf-8")
+    csvread = csv.reader(file)
+    header = next(csvread) #read header column
+
+    #some of them may need to have author. to the beginning to match
+    columns = ['game_id','addictive','adventure','co_op','comedy','crime','drama','dystopian_','education','emotional','epic','family_friendly','farming','fighting','flight','football','funny','gambling','hacking','horror','indie','magic','mythology','platformer','rpg','shooter']
+    rows = []
+    for i, head in enumerate(header):
+        for j, col in enumerate(columns):
+            if(head == col):
+                columns[j] = (col, i)
+
+    for row in csvread:
+        new_data = []
+        for column_name, column_index in columns:
+            new_data.append(row[column_index])
+        rows.append(new_data)
+
+    file.close()
+
+
+    with dbapi2.connect(dsn) as connection:
+        cursor=connection.cursor()
+        #row number??????
+        for i in range(0, 102505):
+            #tags_Id=rows[i][0] surrogate key
+            game_id=rows[i][0]
+            addictive=rows[i][1]
+            adventure=rows[i][2]
+            co_op=rows[i][3]
+            comedy=rows[i][4]
+            crime=rows[i][5]
+            drama=rows[i][6]
+            dystopian_=rows[i][7]
+            education=rows[i][8]
+            emotional=rows[i][9]
+            epic=rows[i][10]
+            family_friendly=rows[i][11]
+            farming=rows[i][12]
+            fighting=rows[i][13]
+            flight=rows[i][14]
+            football=rows[i][15]
+            funny=rows[i][16]
+            gambling=rows[i][17]
+            hacking=rows[i][18]
+            horror=rows[i][19]
+            indie=rows[i][20]
+            magic=rows[i][21]
+            mythology=rows[i][22]
+            platformer=rows[i][23]
+            rpg=rows[i][24]
+            shooter=rows[i][25]
+            insert="""INSERT INTO Game_Tags(game_id,addictive,adventure,co_op,comedy,crime,drama,dystopian_,education,emotional,epic,family_friendly,farming,fighting,flight,football,funny,gambling,hacking,horror,indie,magic,mythology,platformer,rpg,shooter) VALUES(
+                %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
+            )"""
+           
+            cursor.execute(insert, (game_id,addictive,adventure,co_op,comedy,crime,drama,dystopian_,education,emotional,epic,family_friendly,farming,fighting,flight,football,funny,gambling,hacking,horror,indie,magic,mythology,platformer,rpg,shooter))
+            connection.commit()
+
+   
