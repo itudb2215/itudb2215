@@ -3,6 +3,20 @@
   <head>
     <meta charset="utf-8"/>
     <title>My steam games - Game list</title>
+
+    {% if movies %}
+      <table class="table is-striped is-fullwidth">
+        {% for game_key, game in games %}
+        <tr>
+          <td>
+            {{ game.title }}
+            {% if game.year %} ({{ game.year }}) {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+    {% endif %}
+    
     <link rel="stylesheet" href="/static/games.css"/>
   </head>
   <body>

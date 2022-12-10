@@ -8,6 +8,20 @@
   <body>
     <h1>My steam games</h1>
     <p>Have a nice {{ day }}!</p>
+    
+    {% if movies %}
+    <table class="table is-striped is-fullwidth">
+      {% for game_key, game in games %}
+      <tr>
+        <td>
+          {{ game.title }}
+          {% if game.year %} ({{ game.year }}) {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+  
     <ul>
       <li><a href="/price_info">Buy</a></li>
     </ul>
