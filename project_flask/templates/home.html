@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Games - Home</title>
-    <link rel="stylesheet" href="/static/games.css"/>
-  </head>
-  <body>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
     <h1>My steam games</h1>
     <p>Have a nice {{ day }}!</p>
     
@@ -28,5 +24,5 @@
     <ul>
       <li><a href="/games">List games</a></li>
     </ul>
-  </body>
-</html>
+
+{% endblock %}

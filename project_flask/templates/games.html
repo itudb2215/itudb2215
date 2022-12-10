@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>My steam games - Game list</title>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<h1>Games</h1>
 
     {% if movies %}
       <table class="table is-striped is-fullwidth">
@@ -16,19 +16,14 @@
       {% endfor %}
       </table>
     {% endif %}
-    
-    <link rel="stylesheet" href="/static/games.css"/>
-  </head>
-  <body>
-    <h1>Games</h1>
+  
     <ul>
       <li><a href="/games/requirements">Platfrom Requirements</a></li>
     </ul>
     <ul>
       <li><a href="/games/user_info">User Information</a></li>
     </ul>
-  </body>
-</html>
 
+{% endblock %}
 
  
