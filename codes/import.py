@@ -1,19 +1,35 @@
 import psycopg2 as dbapi2
 import os
 import csv
-import urllib.parse
- 
+import sys
+
+maxInt = sys.maxsize
+
+while True:
+    try:
+        csv.field_size_limit(maxInt)
+        break
+    except OverflowError:
+        maxInt = int(maxInt/10)
+
 if __name__=="__main__":
-    url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
     dsn = "dbname=%s user=%s password=%s host=%s " % ("steam", "postgres", "12345", "127.0.0.1")    
+
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
+
+        statement = """
+            DROP SCHEMA public CASCADE;
+            CREATE SCHEMA public;
+        """
+        cursor.execute(statement)
+        connection.commit()
 
         createTable = """CREATE TABLE IF NOT EXISTS Main_Table(
             game_id INTEGER PRIMARY KEY NOT NULL,
             response_id INTEGER NOT NULL,
-            query_name VARCHAR(50),
-            release_date VARCHAR(15),
+            query_name VARCHAR(150),
+            release_date VARCHAR(150),
             required_age INTEGER,
             metacritic INTEGER,
             about_text TEXT 
@@ -23,10 +39,10 @@ if __name__=="__main__":
         createTable = """CREATE TABLE IF NOT EXISTS Additional_game_info(
             gameinfo_Id SERIAL PRIMARY KEY NOT NULL,
             game_id INTEGER NOT NULL,
-            background VARCHAR(150),
-            headerimage VARCHAR(150),
-            supporturl VARCHAR(100),
-            website VARCHAR(100),
+            background VARCHAR(2350),
+            headerimage VARCHAR(3350),
+            supporturl VARCHAR(1600),
+            website VARCHAR(1600),
             recomendationcount INTEGER,
             steamspyowners INTEGER,
             steamspyplayersestimate INTEGER,
@@ -39,9 +55,9 @@ if __name__=="__main__":
             game_id INTEGER NOT NULL,
             isFree BOOLEAN,
             freeveravail BOOLEAN,
-            pricecurrency VARCHAR(30),
-            priceinitial INTEGER,
-            pricefinal INTEGER,
+            pricecurrency VARCHAR(130),
+            priceinitial FLOAT,
+            pricefinal FLOAT,
             purchassesavail BOOLEAN,
             subscriptionavail BOOLEAN,
             CONSTRAINT fk_price FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
@@ -55,9 +71,9 @@ if __name__=="__main__":
             platformwindows BOOLEAN,
             platformlinux BOOLEAN,
             platformmac BOOLEAN,
-            pcminreqtext VARCHAR(150),
-            linuxminreqtext VARCHAR(150),
-            macminreqtext VARCHAR(150),
+            pcminreqtext VARCHAR(3250),
+            linuxminreqtext VARCHAR(3250),
+            macminreqtext VARCHAR(3250),
             CONSTRAINT fk_platform FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)
@@ -82,29 +98,29 @@ if __name__=="__main__":
         )"""
         cursor.execute(createTable)
 
-        createTable = """CREATE TABLE IF NOT EXISTS Reviews(
-            review_id INTEGER PRIMARY KEY NOT NULL,
-            game_id INTEGER NOT NULL,
-            language VARCHAR(30),
-            review VARCHAR(250),
-            timestamp_created INTEGER,
-            votes_helpful INETEGER,
-            votes_funny INTEGER,
-            recommended INETEGER,
-            author_steam_id INTEGER NOT NULL,
-            CONSTRAINT fk_reviews FOREIGN KEY(author_steam_id) REFERENCES Author(steam_id) ON DELETE CASCADE 
-            CONSTRAINT fk_reviewid FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
-        )"""
-        cursor.execute(createTable)   
-
-
         createTable = """CREATE TABLE IF NOT EXISTS Author(
             steam_id INTEGER PRIMARY KEY NOT NULL,
             num_games_owned INTEGER,
-            num_reviews INETEGER,
+            num_reviews INTEGER,
             playtime_forever FLOAT,
             playtime_last_two_weeks FLOAT,
             last_played FLOAT
+        )"""
+        cursor.execute(createTable)  
+
+
+        createTable = """CREATE TABLE IF NOT EXISTS Reviews(
+            review_id INTEGER PRIMARY KEY NOT NULL,
+            game_id INTEGER NOT NULL,
+            language VARCHAR(130),
+            review VARCHAR(350),
+            timestamp_created INTEGER,
+            votes_helpful INTEGER,
+            votes_funny INTEGER,
+            recommended INTEGER,
+            author_steam_id INTEGER NOT NULL,
+            CONSTRAINT fk_reviews FOREIGN KEY(author_steam_id) REFERENCES Author(steam_id) ON DELETE CASCADE, 
+            CONSTRAINT fk_reviewid FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
         )"""
         cursor.execute(createTable)   
 
@@ -145,25 +161,32 @@ if __name__=="__main__":
     csvread = csv.reader(file)
     header = next(csvread) #read header column
 
-    columns = ['QueryID', 'ResponseID' ,'QueryName','ReleaseDate','RequiredAge','Metacritic','RecommendationCount','Steamspyowners','Steamspyplayersestimate','IsFree','FreeVerAvail','PurchaseAvail','SubscriptionAvail','PlatformWindows','PlatformLinux','PlatformMac','GenreIsNonGame','GenreIsIndie','GenreIsAction','GenreIsAdventure','GenreIsCasual','GenreIsStrategy','GenreIsRPG','GenreIsSimulation','GenreIsEarlyAccess','GenreIsFreeToPlay','GenreIsSports','GenreIsRacing','GenreIsMassivelyMultiplayer','PriceCurrency','PriceInitial','PriceFinal','SupportURL','AboutText','Background','HeaderImage','Website','PCMinReqsText','LinuxMinReqsText','MacMinReqsText']
+    keepcolumn=[]
+    columns = ['QueryID', 'ResponseID' ,'QueryName','ReleaseDate','RequiredAge','Metacritic','RecommendationCount','SteamSpyOwners','SteamSpyPlayersEstimate','IsFree','FreeVerAvail','PurchaseAvail','SubscriptionAvail','PlatformWindows','PlatformLinux','PlatformMac','GenreIsNonGame','GenreIsIndie','GenreIsAction','GenreIsAdventure','GenreIsCasual','GenreIsStrategy','GenreIsRPG','GenreIsSimulation','GenreIsEarlyAccess','GenreIsFreeToPlay','GenreIsSports','GenreIsRacing','GenreIsMassivelyMultiplayer','PriceCurrency','PriceInitial','PriceFinal','SupportURL','AboutText','Background','HeaderImage','Website','PCMinReqsText','LinuxMinReqsText','MacMinReqsText']
     rows = []
     for i, head in enumerate(header):
         for j, col in enumerate(columns):
             if(head == col):
-                columns[j] = (col, i)
+                keepcolumn.append((col,i))
+                
 
     for row in csvread:
         new_data = []
-        for column_name, column_index in columns:
+        for (column_name, column_index) in keepcolumn:
             new_data.append(row[column_index])
         rows.append(new_data)
 
     file.close()
 
+    imported_game_ids=set()
+  
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        for i in range(0, 13360):
+        for i in range(len(rows)):
             game_id=rows[i][0]
+            if(game_id in imported_game_ids): 
+                continue
+            imported_game_ids.add(game_id)
             response_id=rows[i][1]
             query_name=rows[i][2]
             release_date=rows[i][3]
@@ -172,15 +195,17 @@ if __name__=="__main__":
             about_text=rows[i][33]
             
             insert="""INSERT INTO Main_Table (game_id, response_id, query_name, release_date, required_age, metacritic,about_text) VALUES(
-                %s,%s,%s,%s,%s
+                %s,%s,%s,%s,%s,%s,%s
             )"""
-
+            
+            
             cursor.execute(insert, (game_id, response_id, query_name, release_date, required_age, metacritic,about_text))
+            
             connection.commit()
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        for i in range(0, 13360):
+        for i in range(len(rows)):
             game_id=rows[i][0]
             background=rows[i][34]
             headerimage=rows[i][35]
@@ -190,7 +215,6 @@ if __name__=="__main__":
             steamspyowners=rows[i][7]
             steamspyplayersestimate=rows[i][8]
             
-            #surrogate keys???
             insert="""INSERT INTO Additional_game_info (game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES(
                 %s,%s,%s,%s,%s,%s,%s,%s
             )"""
@@ -200,7 +224,7 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        for i in range(0, 13360):
+        for i in range(len(rows)):
             game_id=rows[i][0]
             isFree=rows[i][9]
             freeveravail=rows[i][10]
@@ -209,7 +233,7 @@ if __name__=="__main__":
             pricefinal=rows[i][31]
             purchassesavail=rows[i][11]
             subscriptionavail=rows[i][12]
-            
+
             insert="""INSERT INTO Price_Info(game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal,purchassesavail,subscriptionavail) VALUES(
                 %s,%s,%s,%s,%s,%s,%s,%s
             )"""
@@ -219,7 +243,7 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        for i in range(0, 13360):
+        for i in range(len(rows)):
             game_id=rows[i][0]
             GenreIsNonGame=rows[i][16]
             GenreIsIndie=rows[i][17]
@@ -244,7 +268,7 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        for i in range(0, 13360):
+        for i in range(len(rows)):
             game_id=rows[i][0]
             response_id=rows[i][1]
             platformwindows=rows[i][13]
@@ -254,7 +278,7 @@ if __name__=="__main__":
             linuxminreqtext=rows[i][38]
             macminreqtext=rows[i][39]
             
-            insert="""INSERT INTO Platfrom_Requirements(game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES(
+            insert="""INSERT INTO Platform_Requirements(game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES(
                 %s,%s,%s,%s,%s,%s,%s,%s
             )"""
            
@@ -265,17 +289,18 @@ if __name__=="__main__":
     csvread = csv.reader(file)
     header = next(csvread) #read header column
 
+    keepcolumn=[]
     #some of them may need to have author. to the beginning to match
-    columns = ['app_id', 'review_id','language','review','timestamp_created','recommended','votes_helpful','votes_funny','steamid','num_games_owned','num_reviews','playtime_forever','playtime_last_two_weeks','last_played']
+    columns = ['app_id', 'review_id','language','review','timestamp_created','recommended','votes_helpful','votes_funny','author.steamid','author.num_games_owned','author.num_reviews','author.playtime_forever','author.playtime_last_two_weeks','author.last_played']
     rows = []
     for i, head in enumerate(header):
         for j, col in enumerate(columns):
             if(head == col):
-                columns[j] = (col, i)
+                keepcolumn.append((col,i))
 
     for row in csvread:
         new_data = []
-        for column_name, column_index in columns:
+        for column_name, column_index in keepcolumn:
             new_data.append(row[column_index])
         rows.append(new_data)
 
@@ -283,8 +308,8 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        #row number??????
-        for i in range(0, 217000000):
+       
+        for i in range(len(rows)):
             review_id=rows[i][1]
             game_id=rows[i][0]
             language=rows[i][2]
@@ -304,8 +329,8 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        #row number??????
-        for i in range(0, 217000000):
+       
+        for i in range(len(rows)):
             steam_id=rows[i][8]
             num_games_owned=rows[i][9]
             num_reviews=rows[i][10]
@@ -325,17 +350,17 @@ if __name__=="__main__":
     csvread = csv.reader(file)
     header = next(csvread) #read header column
 
-    #some of them may need to have author. to the beginning to match
+    keepcolumn=[]
     columns = ['game_id','addictive','adventure','co_op','comedy','crime','drama','dystopian_','education','emotional','epic','family_friendly','farming','fighting','flight','football','funny','gambling','hacking','horror','indie','magic','mythology','platformer','rpg','shooter']
     rows = []
     for i, head in enumerate(header):
         for j, col in enumerate(columns):
             if(head == col):
-                columns[j] = (col, i)
+                keepcolumn.append((col,i))
 
     for row in csvread:
         new_data = []
-        for column_name, column_index in columns:
+        for column_name, column_index in keepcolumn:
             new_data.append(row[column_index])
         rows.append(new_data)
 
@@ -344,9 +369,7 @@ if __name__=="__main__":
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()
-        #row number??????
-        for i in range(0, 102505):
-            #tags_Id=rows[i][0] surrogate key
+        for i in range(len(rows)):
             game_id=rows[i][0]
             addictive=rows[i][1]
             adventure=rows[i][2]
@@ -381,3 +404,6 @@ if __name__=="__main__":
             connection.commit()
 
    
+            
+
+            
