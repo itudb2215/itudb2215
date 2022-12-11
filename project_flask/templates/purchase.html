@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Price_info{% endblock %}
+{% block content %}
+
+<h2>Please enter your credit-card information:</h2>
+    
+<form action="aciton_page.php" method="get" id="buyForm">
+    <label for="nameSurname">Name Surname: </label>
+    <input type="text" placeholder="Name Surname" id="nameSurname" name="nameSurname" required><br>
+    <label for="cardNo">Card Number: </label>
+    <input type="text" placeholder="0000 0000 0000 0000" id="cardNo" name="cardNo" required><br>
+    <button type="submit" value="Buy" >Buy</button> <!--get info into table-->
+</form>
+
+{% endblock %}

@@ -1,5 +1,24 @@
 h1 {
     color: #e9601a;
+    background-color: pink;
+    border-bottom-color: silver;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+h2 {
+    color: black;
+    font-style: italic;
+    font-size: 30px;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+body {
+    background-color: #F0F8FF;
 }
 
 footer {

@@ -1,1 +1,10 @@
+WEEK 9 (Nov 21 - Nov 27):
+- Finalizing the ER diagram for database review
+- Finalizing the group members role distribution
 
+WEEK 10 (Nov 28 - Dec 4)
+
+WEEK 11 (Dec 5 - Dec 11)
+- For purchasing a game, purchase.html is added and connected to price.html
+- Purchase table is added to get information from user
+- games.css is modified
