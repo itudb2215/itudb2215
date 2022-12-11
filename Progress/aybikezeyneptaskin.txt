@@ -4,3 +4,6 @@ WEEK 9 (Nov 21 - Nov 27):
 
 WEEK 10 (Nov 28 - Dec 4):
 - Dataset csv files are added to the postgre server
+
+WEEK 11
+- All tables are created and their data are imported from csv datasets 
