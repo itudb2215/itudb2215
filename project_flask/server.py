@@ -1,27 +1,26 @@
 import os
-from flask import Flask
+from flask import Flask, g
 import views
-from database import Database
 
 
-def create_app():
+def create_app(debug=True):
     app = Flask(__name__)
-    app.config.from_object("settings")
+   # app.config["DEBUG"] = True   
+    with app.app_context():
+        import database_conn
+        database_conn.get_db()
 
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/games", view_func=views.games_page)
-    app.add_url_rule("/price_info", view_func=views.price_info)
-    app.add_url_rule("/games/requirements", view_func=views.requirements)
-    app.add_url_rule("/games/user_info", view_func=views.user_info)
+    app.add_url_rule("/price_info", view_func=views.price_info_page)
+    app.add_url_rule("/games/requirements", view_func=views.requirements_page)
+    app.add_url_rule("/games/user_info", view_func=views.user_info_page)
     
-    home_dir = os.path.expanduser("/Applications/Postgres.app/Contents/Versions/15/bin/psql")
-    db = Database(os.path.join(home_dir,"flask_db"))
-    app.config["db"] = db
-
+    
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
     port = app.config.get("PORT", 5000)
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=8080)
