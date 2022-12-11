@@ -4,19 +4,7 @@
 
 <h1>Games</h1>
 
-    {% if movies %}
-      <table class="table is-striped is-fullwidth">
-        {% for game_key, game in games %}
-        <tr>
-          <td>
-            {{ game.title }}
-            {% if game.year %} ({{ game.year }}) {% endif %}
-          </td>
-        </tr>
-      {% endfor %}
-      </table>
-    {% endif %}
-  
+
     <ul>
       <li><a href="/games/requirements">Platfrom Requirements</a></li>
     </ul>

@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/static/games.css"/>
   </head>
   <body>
+    <nav>
+      <a href="{{ url_for('home') }}">Home Page</a>
+    </nav>
     {% block content %}{% endblock %}
 
     <footer>

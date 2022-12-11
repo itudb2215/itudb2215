@@ -13,7 +13,7 @@ while True:
         maxInt = int(maxInt/10)
 
 if __name__=="__main__":
-    dsn = "dbname=%s user=%s password=%s host=%s " % ("steam", "postgres", "12345", "127.0.0.1")    
+    dsn = "dbname=%s user=%s password=%s host=%s " % ("flask_db", "postgres", "dbproject2215", "127.0.0.1")    
 
     with dbapi2.connect(dsn) as connection:
         cursor=connection.cursor()

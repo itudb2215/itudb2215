@@ -13,9 +13,8 @@ def create_app():
     app.add_url_rule("/price_info", view_func=views.price_info)
     app.add_url_rule("/games/requirements", view_func=views.requirements)
     app.add_url_rule("/games/user_info", view_func=views.user_info)
-
     
-    home_dir = os.path.expanduser("~")
+    home_dir = os.path.expanduser("/Applications/Postgres.app/Contents/Versions/15/bin/psql")
     db = Database(os.path.join(home_dir,"flask_db"))
     app.config["db"] = db
 
