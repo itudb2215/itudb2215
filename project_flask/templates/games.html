@@ -1,23 +1,28 @@
-{% extends "layout.html" %}
+
 {% block title %}Home{% endblock %}
 {% block content %}
 
-
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+    </head>
+<body>
 <h1>Games</h1>
-
-<div style="width: 50%; margin: auto">
-  {% if selected_game %}
-  <table class="table is-striped is-fullwidth">
-              {% set bg_color = '#e6f9ff' %}
-          {% else %}
-              {% set bg_color = '#eee' %}
-          {% endif %}
-    <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p style="font-size: 24px">{{ selected_game.query_name}}</p>
-    </div>
-    </table>
+<!-- TODO: Deal if Background image does not exists (example game: naruto)-->
+{% if adds.background %}
+<div
+class="bg-image d-flex justify-content-center align-items-center"
+  style="
+    background-image: url({{adds.background}});
+    height: 50vh;
+  "
+>{%endif%}
+  <h1 class="text-white">{{ selected_game.query_name}}</h1>
 </div>
-<div style="width: 50%; margin: auto">
 
   {% if adds %}
   <table class="table is-striped is-fullwidth">
@@ -26,29 +31,33 @@
               {% set bg_color = '#eee' %}
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p style="font-size: 24px">{{ adds.game_id, adds.headerimage }}</p>
+      <p style="font-size: 24px">{{ adds.game_id, adds.background }}</p>
     </div>
     </table>
 </div>
 
+
+
 <div class="header_image">
-  {%if 'http' in adds.background%}
-    <img src="{{adds.headerimage}}" alt="game image">
-  {%else%}
-    <img src="{{url_for('static', filename=default+adds.headerimage)}}" alt="game image">
+  {%if 'http' in adds.headerimage%}
+  <div class="text-center">
+    <img src="{{adds.headerimage}}" class="img-thumbnail" alt="game image">
+    {%else%}
+    <img src="{{url_for('static', filename=default+adds.headerimage)}}" class="img-thumbnail" alt="game image">
+  </div>
   {%endif%}
 </div>
 
-
+    
     <ul>
-      <li><a href="/games/requirements">Platfrom Requirements</a></li>
+      <li><a href="/games/requirements/{{selected_game.game_id}}">Platfrom Requirements</a></li>
     </ul>
     <ul>
       <li><a href="/games/user_info">User Information</a></li>
     </ul>
     <a href="/games/game_tags/">Game Tags</a>
-    <a href="/games/price_info/">Price information</a>
+    <a href="/games/price_info/{{selected_game.game_id}}">Price information</a>
 
 {% endblock %}
-
- 
+</body>
+ </html>

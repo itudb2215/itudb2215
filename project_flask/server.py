@@ -12,8 +12,8 @@ def create_app(debug=True):
 
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/games/<game_id>", view_func=views.games_page)
-    app.add_url_rule("/price_info", view_func=views.price_info_page)
-    app.add_url_rule("/games/requirements", view_func=views.requirements_page)
+    app.add_url_rule("/price_info/<game_id>", view_func=views.price_info_page)
+    app.add_url_rule("/games/requirements/<game_id>", view_func=views.requirements_page)
     app.add_url_rule("/games/user_info", view_func=views.user_info_page)
     
     
