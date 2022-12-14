@@ -5,21 +5,29 @@
 <h1>Games</h1>
 
 <div style="width: 50%; margin: auto">
-  {% if additional %}
+  {% if selected_game %}
   <table class="table is-striped is-fullwidth">
-    {% for add in additional %}
-      {% if loop.index % 2 == 0 %}
               {% set bg_color = '#e6f9ff' %}
           {% else %}
               {% set bg_color = '#eee' %}
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p>#{{ loop.index }}</p>
-      <p style="font-size: 24px">{{ add.game_id, add.background }}</p>
+      <p style="font-size: 24px">{{ selected_game.query_name}}</p>
     </div>
-    {% endfor %}
     </table>
-  {% endif %}
+</div>
+<div style="width: 50%; margin: auto">
+  
+  {% if adds %}
+  <table class="table is-striped is-fullwidth">
+              {% set bg_color = '#e6f9ff' %}
+          {% else %}
+              {% set bg_color = '#eee' %}
+          {% endif %}
+    <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
+      <p style="font-size: 24px">{{ adds.game_id, adds.background }}</p>
+    </div>
+    </table>
 </div>
 
     <ul>

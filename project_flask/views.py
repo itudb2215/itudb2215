@@ -15,7 +15,8 @@ def games_page(game_id):
     db = Database(get_db())
     game = db.get_game(game_id)
     additional = db.get_additional()
-    return render_template("games.html", selected_game=game, additional=additional)
+    adds = db.get_adds(game_id)
+    return render_template("games.html", selected_game=game, additional=additional, adds=adds)
 
 def price_info_page(game_id):
     db = Database(get_db())

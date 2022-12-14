@@ -42,6 +42,15 @@ class Database:
             additional.append(Additional(game_id, background, headerimage))
         return additional
 
+    def get_adds(self, game_id):
+        cursor = self.connection.cursor()
+        query = "SELECT game_id, background, headerimage FROM Additional_game_info WHERE (game_id = %s)"
+        cursor.execute(query, (game_id,))
+        results = cursor.fetchone()
+        adds = Additional(results[0], results[1])    
+        return adds
+
+
     def get_comments(self):
         movies = []
         
