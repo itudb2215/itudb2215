@@ -2,7 +2,7 @@ from datetime import datetime
 from database_conn import get_db
 from database import Database 
 
-from flask import render_template
+from flask import render_template, redirect
 
 def home_page():
     db = Database(get_db())
@@ -14,7 +14,8 @@ def home_page():
 def games_page(game_id):
     db = Database(get_db())
     game = db.get_game(game_id)
-    return render_template("games.html", selected_game=game)
+    additional = db.get_additional()
+    return render_template("games.html", selected_game=game, additional=additional)
 
 def price_info_page(game_id):
     db = Database(get_db())

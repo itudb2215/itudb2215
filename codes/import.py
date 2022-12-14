@@ -117,7 +117,7 @@ if __name__=="__main__":
             timestamp_created INTEGER,
             votes_helpful INTEGER,
             votes_funny INTEGER,
-            recommended INTEGER,
+            recommended BOOLEAN,
             author_steam_id INTEGER NOT NULL,
             CONSTRAINT fk_reviews FOREIGN KEY(author_steam_id) REFERENCES Author(steam_id) ON DELETE CASCADE, 
             CONSTRAINT fk_reviewid FOREIGN KEY(game_id) REFERENCES Main_Table(game_id) ON DELETE CASCADE 
