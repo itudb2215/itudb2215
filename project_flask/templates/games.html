@@ -12,7 +12,6 @@
     </head>
 <body>
 {%include 'navbar.html'%}
-<h1>Games</h1>
 <!-- TODO: Deal if Background image does not exists (example game: naruto)-->
 {% if adds.background %}
 <div
@@ -25,17 +24,17 @@ class="bg-image d-flex justify-content-center align-items-center"
   <h1 class="text-white">{{ selected_game.query_name}}</h1>
 </div>
 
-  {% if adds %}
-  <table class="table is-striped is-fullwidth">
-              {% set bg_color = '#e6f9ff' %}
-          {% else %}
-              {% set bg_color = '#eee' %}
-          {% endif %}
-    <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p style="font-size: 24px">{{ adds.supporturl}}</p>
-    </div>
-    </table>
-</div>
+<div class="text-center">
+<ul class="list-group list-group-flush" class="text-center">
+  <!--TODO: deal with if link does not exists-->
+  <li class="list-group-item">Game ID: <p style="font-size: 24px">{{ adds.game_id}}</p> </li>
+  <a href="{{ adds.supporturl}}" class="list-group-item list-group-item-action ">Support URL: <p style="font-size: 24px">{{ adds.supporturl}}</p> </li></a>
+  <a href="{{ adds.website}}" class="list-group-item list-group-item-action ">Website: <p style="font-size: 24px">{{ adds.website}}</p> </li></a>
+  <li class="list-group-item">Recomendation Count: <p style="font-size: 24px">{{ adds.recomendationcount}}</p> </li>
+  <li class="list-group-item">Owners: <p style="font-size: 24px">{{ adds.steamspyowners}}</p> </li>
+  <li class="list-group-item">Player Estimate: <p style="font-size: 24px">{{ adds.steamspyplayersestimate}}</p> </li>
+  
+</ul>
 
 
 
@@ -49,16 +48,16 @@ class="bg-image d-flex justify-content-center align-items-center"
   {%endif%}
 </div>
 
-    
-    <ul>
-      <li><a href="/games/requirements/{{selected_game.game_id}}">Platfrom Requirements</a></li>
-    </ul>
-    <ul>
-      <li><a href="/games/user_info">User Information</a></li>
-    </ul>
-    <a href="/games/game_tags/">Game Tags</a>
-    <a href="/games/price_info/{{selected_game.game_id}}">Price information</a>
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+</div>
 
 {% endblock %}
+</div>
 </body>
+<footer>
+  <small>&copy; 2022 Fall Database Project - Group 15</small>
+</footer>
  </html>

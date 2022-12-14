@@ -1,5 +1,6 @@
 from games import Game
-from additional import Additional
+from games import Additional
+from games import Genre
 import psycopg2
 
 class Database:
@@ -50,6 +51,13 @@ class Database:
         adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
         return adds
 
+    def get_genre(self, game_id):
+        cursor = self.connection.cursor()
+        query = "SELECT game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer FROM Genre WHERE (game_id = %s)"
+        cursor.execute(query, (game_id,))
+        results = cursor.fetchone()
+        genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
+        return genre
 
     def get_comments(self):
         movies = []
