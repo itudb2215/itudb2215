@@ -44,10 +44,10 @@ class Database:
 
     def get_adds(self, game_id):
         cursor = self.connection.cursor()
-        query = "SELECT game_id, background, headerimage FROM Additional_game_info WHERE (game_id = %s)"
+        query = "SELECT game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate FROM Additional_game_info WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
-        adds = Additional(results[0], results[1])    
+        adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
         return adds
 
 

@@ -2,6 +2,7 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
+
 <h1>Games</h1>
 
 <div style="width: 50%; margin: auto">
@@ -17,7 +18,7 @@
     </table>
 </div>
 <div style="width: 50%; margin: auto">
-  
+
   {% if adds %}
   <table class="table is-striped is-fullwidth">
               {% set bg_color = '#e6f9ff' %}
@@ -25,10 +26,19 @@
               {% set bg_color = '#eee' %}
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p style="font-size: 24px">{{ adds.game_id, adds.background }}</p>
+      <p style="font-size: 24px">{{ adds.game_id, adds.headerimage }}</p>
     </div>
     </table>
 </div>
+
+<div class="header_image">
+  {%if 'http' in adds.background%}
+    <img src="{{adds.headerimage}}" alt="game image">
+  {%else%}
+    <img src="{{url_for('static', filename=default+adds.headerimage)}}" alt="game image">
+  {%endif%}
+</div>
+
 
     <ul>
       <li><a href="/games/requirements">Platfrom Requirements</a></li>
