@@ -11,6 +11,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
     </head>
 <body>
+{%include 'navbar.html'%}
 <h1>Games</h1>
 <!-- TODO: Deal if Background image does not exists (example game: naruto)-->
 {% if adds.background %}
@@ -31,7 +32,7 @@ class="bg-image d-flex justify-content-center align-items-center"
               {% set bg_color = '#eee' %}
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
-      <p style="font-size: 24px">{{ adds.game_id, adds.background }}</p>
+      <p style="font-size: 24px">{{ adds.supporturl}}</p>
     </div>
     </table>
 </div>
