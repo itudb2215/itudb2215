@@ -15,19 +15,45 @@
 <h1>{{ selected_game.query_name}}</h1>
 
 <ul class="list-group list-group-flush" class="text-center">
-  <li class="list-group-item">Non Game: <p style="font-size: 24px">{{ genre.GenreIsNonGame}}</p> </li>
-  <li class="list-group-item">Indie: <p style="font-size: 24px">{{ genre.GenreIsIndie}}</p> </li>
-  <li class="list-group-item">Action: <p style="font-size: 24px">{{ genre.GenreIsAction}}</p> </li>
-  <li class="list-group-item">Adventure: <p style="font-size: 24px">{{ genre.GenreIsAdventure}}</p> </li>
-  <li class="list-group-item">Casual: <p style="font-size: 24px">{{ genre.GenreIsCasual}}</p> </li>
-  <li class="list-group-item">Strategy: <p style="font-size: 24px">{{ genre.GenreIsStrategy}}</p> </li>
-  <li class="list-group-item">RPG: <p style="font-size: 24px">{{ genre.GenreIsRPG}}</p> </li>
-  <li class="list-group-item">Simulation: <p style="font-size: 24px">{{ genre.GenreIsSimulation}}</p> </li>
-  <li class="list-group-item">Early Access: <p style="font-size: 24px">{{ genre.GenreIsEarlyAccess}}</p> </li>
-  <li class="list-group-item">Free: <p style="font-size: 24px">{{ genre.GenreIsFreeToPlay}}</p> </li>
-  <li class="list-group-item">Sports: <p style="font-size: 24px">{{ genre.GenreIsSports}}</p> </li>
-  <li class="list-group-item">Racing: <p style="font-size: 24px">{{ genre.GenreIsRacing}}</p> </li>
-  <li class="list-group-item">Multiplayer: <p style="font-size: 24px">{{ genre.GenreIsMassivelyMultiplayer}}</p> </li>
+  {% if genre.GenreIsNonGame == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Non Game</p> </li>
+  {%endif%}
+  {% if genre.GenreIsIndie == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Indie</p> </li>
+  {%endif%}
+  {% if genre.GenreIsAction == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Action</p> </li>
+  {%endif%}
+  {% if genre.GenreIsAdventure == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Adventure</p> </li>
+  {%endif%}
+  {% if genre.GenreIsCasual == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Casual</p> </li>
+  {%endif%}
+  {% if genre.GenreIsStrategy == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Strategy</p> </li>
+  {%endif%}
+  {% if genre.GenreIsRPG == true %}
+  <li class="list-group-item"><p style="font-size: 24px">RPG</p> </li>
+  {%endif%}
+  {% if genre.GenreIsSimulation == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Simulation</p> </li>
+  {%endif%}
+  {% if genre.GenreIsEarlyAccess == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Early Access</p> </li>
+  {%endif%}
+  {% if genre.GenreIsFreeToPlay == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Free</p> </li>
+  {%endif%}
+  {% if genre.GenreIsSports == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Sports</p> </li>
+  {%endif%}
+  {% if genre.GenreIsRacing == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Racing</p> </li>
+  {%endif%}
+  {% if genre.GenreIsMassivelyMultiplayer == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Multiplayer</p> </li>
+  {%endif%}
 </ul>
 
 <div class="btn-group" role="group" aria-label="Basic outlined example">
