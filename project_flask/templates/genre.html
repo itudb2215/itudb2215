@@ -1,0 +1,41 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+    </head>
+<body>
+{%include 'navbar.html'%}
+<h1>{{ selected_game.query_name}}</h1>
+
+<ul class="list-group list-group-flush" class="text-center">
+  <li class="list-group-item">Non Game: <p style="font-size: 24px">{{ genre.GenreIsNonGame}}</p> </li>
+  <li class="list-group-item">Indie: <p style="font-size: 24px">{{ genre.GenreIsIndie}}</p> </li>
+  <li class="list-group-item">Action: <p style="font-size: 24px">{{ genre.GenreIsAction}}</p> </li>
+  <li class="list-group-item">Adventure: <p style="font-size: 24px">{{ genre.GenreIsAdventure}}</p> </li>
+  <li class="list-group-item">Casual: <p style="font-size: 24px">{{ genre.GenreIsCasual}}</p> </li>
+  <li class="list-group-item">Strategy: <p style="font-size: 24px">{{ genre.GenreIsStrategy}}</p> </li>
+  <li class="list-group-item">RPG: <p style="font-size: 24px">{{ genre.GenreIsRPG}}</p> </li>
+  <li class="list-group-item">Simulation: <p style="font-size: 24px">{{ genre.GenreIsSimulation}}</p> </li>
+  <li class="list-group-item">Early Access: <p style="font-size: 24px">{{ genre.GenreIsEarlyAccess}}</p> </li>
+  <li class="list-group-item">Free: <p style="font-size: 24px">{{ genre.GenreIsFreeToPlay}}</p> </li>
+  <li class="list-group-item">Sports: <p style="font-size: 24px">{{ genre.GenreIsSports}}</p> </li>
+  <li class="list-group-item">Racing: <p style="font-size: 24px">{{ genre.GenreIsRacing}}</p> </li>
+  <li class="list-group-item">Multiplayer: <p style="font-size: 24px">{{ genre.GenreIsMassivelyMultiplayer}}</p> </li>
+</ul>
+
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+</div>
+
+</div>
+</body>
+<footer>
+  <small>&copy; 2022 Fall Database Project - Group 15</small>
+</footer>
+ </html>

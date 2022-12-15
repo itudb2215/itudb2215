@@ -33,10 +33,14 @@ class="bg-image d-flex justify-content-center align-items-center"
   <li class="list-group-item">Recomendation Count: <p style="font-size: 24px">{{ adds.recomendationcount}}</p> </li>
   <li class="list-group-item">Owners: <p style="font-size: 24px">{{ adds.steamspyowners}}</p> </li>
   <li class="list-group-item">Player Estimate: <p style="font-size: 24px">{{ adds.steamspyplayersestimate}}</p> </li>
-  
 </ul>
 
+<div class="d-grid gap-2">
+  <a href="{{ url_for('genre_page', game_id = game_id) }}" class="btn btn-primary btn btn-warning btn-lg"  role="button" data-bs-toggle="button" >Click to access genre information</a>
+</div>
 
+<li><a href="/games/genre/{{selected_game.game_id}}">Genre Page</a></li>
+<li><a href="/games/requirements/{{selected_game.game_id}}">Platfrom Requirements</a></li>
 
 <div class="header_image">
   {%if 'http' in adds.headerimage%}
