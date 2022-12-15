@@ -2,6 +2,7 @@ from games import Game
 from games import Additional
 from games import Genre
 from games import Requirements
+from games import Review
 import psycopg2
 
 class Database:
@@ -69,11 +70,11 @@ class Database:
         genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
         return genre
 
-    def get_comments(self):
-        movies = []
+    def get_reviews(self):
+        reviews = []
         
         cursor = self.connection.cursor()
-        query = "SELECT * FROM Reviews WHERE (language = 'turkish') LIMIT 1000"
+        query = "SELECT review_id, language, review, timestamp_created, author_steam_id, recommended FROM Reviews WHERE (language = 'turkish') LIMIT 1000"
         cursor.execute(query)
-        for game_id, query_name, release_year in cursor:
-            movies.append((Game(game_id, query_name, release_year)))
+        for review_id, language, review, timestamp_created, author_steam_id, recommended in cursor:
+            reviews.append((Review(review_id, language, review, timestamp_created, author_steam_id, recommended)))
