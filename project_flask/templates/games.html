@@ -7,6 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/pages.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
     </head>
@@ -35,13 +36,6 @@ class="bg-image d-flex justify-content-center align-items-center"
   <li class="list-group-item">Player Estimate: <p style="font-size: 24px">{{ adds.steamspyplayersestimate}}</p> </li>
 </ul>
 
-<div class="d-grid gap-2">
-  <a href="{{ url_for('genre_page', game_id = game_id) }}" class="btn btn-primary btn btn-warning btn-lg"  role="button" data-bs-toggle="button" >Click to access genre information</a>
-</div>
-
-<li><a href="/games/genre/{{selected_game.game_id}}">Genre Page</a></li>
-<li><a href="/games/requirements/{{selected_game.game_id}}">Platfrom Requirements</a></li>
-
 <div class="header_image">
   {%if 'http' in adds.headerimage%}
   <div class="text-center">
@@ -51,6 +45,11 @@ class="bg-image d-flex justify-content-center align-items-center"
   </div>
   {%endif%}
 </div>
+
+<a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
+<a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platfrom Requirements</a>
+
+
 
 <div class="btn-group" role="group" aria-label="Basic outlined example">
   <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>

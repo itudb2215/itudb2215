@@ -1,14 +1,12 @@
 class Game:
-    def __init__(self, _game_id, _response_id, _query_name, _release_year=None, _required_age=None, _metacritic=None, _about_text=None, _image_url=None,
+    def __init__(self, _game_id, _query_name, _release_year=None, _required_age=None, _metacritic=None, _about_text=None, _image_url=None,
                  ):
         self.game_id = _game_id
-        self.response_id = _response_id
-        self.query_name = _query_name
         self.release_year = _release_year
         self.required_age = _required_age
+        self.query_name = _query_name
         self.metacritic = _metacritic
         self.about_text = _about_text
-        
         self.image_url = _image_url
 
 class Additional:
@@ -41,3 +39,17 @@ class Genre:
         self.GenreIsSports = _GenreIsSports
         self.GenreIsRacing = _GenreIsRacing
         self.GenreIsMassivelyMultiplayer = _GenreIsMassivelyMultiplayer
+
+class Requirements:
+    def __init__(self, _game_id, _response_id, _platformwindows=None, _platformlinux=None, _platformmac=None, _pcminreqtext=None, _linuxminreqtext=None, _macminreqtext=None, 
+                 ):
+        self.game_id = _game_id
+        self.response_id = _response_id
+        self.platformwindows = _platformwindows
+        self.platformlinux = _platformlinux
+        self.platformmac = _platformmac
+        self.pcminreqtext = _pcminreqtext
+        self.linuxminreqtext = _linuxminreqtext
+        self.macminreqtext = _macminreqtext    
+
+      

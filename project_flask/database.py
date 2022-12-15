@@ -1,6 +1,7 @@
 from games import Game
 from games import Additional
 from games import Genre
+from games import Requirements
 import psycopg2
 
 class Database:
@@ -22,6 +23,7 @@ class Database:
         #print(results)
         game_ = Game(results[0], results[2])
         return game_
+
 
     def get_games(self):
         games = []
@@ -50,6 +52,14 @@ class Database:
         results = cursor.fetchone()
         adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
         return adds
+
+    def get_requirements(self, game_id):
+        cursor = self.connection.cursor()
+        query = "SELECT game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext FROM Platform_Requirements WHERE (game_id = %s)"
+        cursor.execute(query, (game_id,))
+        results = cursor.fetchone()
+        requirements = Requirements(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
+        return requirements    
 
     def get_genre(self, game_id):
         cursor = self.connection.cursor()

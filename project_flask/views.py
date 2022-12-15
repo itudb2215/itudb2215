@@ -38,7 +38,8 @@ def price_info_page(game_id):
 def requirements_page(game_id):
     db = Database(get_db())
     game = db.get_game(game_id)
-    return render_template("requirements.html", selected_game=game)
+    requirements =  db.get_requirements(game_id)
+    return render_template("requirements.html", selected_game=game, requirements=requirements)
 
 def user_info_page(author_id):
     db = Database(get_db())
