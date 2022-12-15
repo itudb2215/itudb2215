@@ -14,16 +14,19 @@
 <body>
 {%include 'navbar.html'%}
 <!-- TODO: Deal if Background image does not exists (example game: naruto)-->
-{% if adds.background %}
+{% if adds.background != "" %}
 <div
 class="bg-image d-flex justify-content-center align-items-center"
   style="
     background-image: url({{adds.background}});
     height: 50vh;
   "
->{%endif%}
+>
   <h1 class="text-white">{{ selected_game.query_name}}</h1>
 </div>
+{%else%}
+  <h1>{{ selected_game.query_name}}</h1>
+{%endif%}
 
 <div class="text-center">
 <ul class="list-group list-group-flush" class="text-center">
@@ -47,7 +50,7 @@ class="bg-image d-flex justify-content-center align-items-center"
 </div>
 
 <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
-<a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platfrom Requirements</a>
+<a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
 
 
 

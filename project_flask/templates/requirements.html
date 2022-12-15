@@ -13,12 +13,21 @@
 <h1>Platform Requirements</h1>
 
 <ul class="list-group list-group-flush" class="text-center">
-  <li class="list-group-item">platformwindows: <p style="font-size: 24px">{{ requirements.platformwindows}}</p> </li>
-  <li class="list-group-item">platformlinux: <p style="font-size: 24px">{{ requirements.platformlinux}}</p> </li>
-  <li class="list-group-item">platformmac: <p style="font-size: 24px">{{ requirements.platformmac}}</p> </li>
-  <li class="list-group-item">pcminreqtext: <p style="font-size: 24px">{{ requirements.pcminreqtext}}</p> </li>
-  <li class="list-group-item">linuxminreqtext: <p style="font-size: 24px">{{ requirements.linuxminreqtext}}</p> </li>
-  <li class="list-group-item">macminreqtext: <p style="font-size: 24px">{{ requirements.macminreqtext}}</p> </li>
+  <h3>Accessible Platform:</h3>
+  {% if requirements.platformwindows == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Windows</p> </li>
+  {%endif%}
+  {% if requirements.platformlinux == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Linux</p> </li>
+  {%endif%}
+  {% if requirements.platformmac == true %}
+  <li class="list-group-item"><p style="font-size: 24px">Mac</p> </li>
+  {%endif%}
+
+  <h3>Requirements:</h3>
+  <li class="list-group-item">PC requirements: <p style="font-size: 24px">{{ requirements.pcminreqtext}}</p> </li>
+  <li class="list-group-item">Linux requirements: <p style="font-size: 24px">{{ requirements.linuxminreqtext}}</p> </li>
+  <li class="list-group-item">Mac requirements: <p style="font-size: 24px">{{ requirements.macminreqtext}}</p> </li>
 </ul>
 
 
