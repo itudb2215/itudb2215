@@ -78,3 +78,11 @@ class Database:
         cursor.execute(query)
         for review_id, language, review, timestamp_created, author_steam_id, recommended in cursor:
             reviews.append((Review(review_id, language, review, timestamp_created, author_steam_id, recommended)))
+    
+    def get_author(self, steam_id):
+        cursor = self.connection.cursor()
+        query = "SELECT steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played FROM Author WHERE (steam_id = %s)"
+        cursor.execute(query, (steam_id,))
+        results = cursor.fetchall()[0]
+        game_ = Game(results[0], results[2])
+        return game_

@@ -66,3 +66,16 @@ class Review:
         self.votes_helpful = _votes_helpful
         self.votes_funny = _votes_funny
         self.author_steam_id = _author_steam_id
+        
+
+class Author:
+    def __init__(self, _steam_id, _num_games_owned=None, _num_reviews=None, _playtime_forever=None, _playtime_last_two_weeks=None, _last_played=None,
+                 ):
+                 
+        self.steam_id = _steam_id
+        self.num_games_owned = _num_games_owned
+        self.num_reviews = _num_reviews
+        self.playtime_forever = _playtime_forever
+        self.playtime_last_two_weeks = _playtime_last_two_weeks
+        self.last_played = _last_played
+        
