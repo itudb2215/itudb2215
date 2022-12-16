@@ -1,6 +1,3 @@
-from turtle import filling
-
-
 class Game:
     def __init__(self, _game_id, _query_name, _release_year=None, _required_age=None, _metacritic=None, _about_text=None, _image_url=None,
                  ):
@@ -11,6 +8,7 @@ class Game:
         self.metacritic = _metacritic
         self.about_text = _about_text
         self.image_url = _image_url
+
 
 class Additional:
     def __init__(self, _game_id, _background=None, _headerimage=None, _supporturl=None, _website=None, _recomendationcount=None, _steamspyowners=None, _steamspyplayersestimate=None
@@ -24,6 +22,8 @@ class Additional:
         self.recomendationcount = _recomendationcount
         self.steamspyowners = _steamspyowners
         self.steamspyplayersestimate = _steamspyplayersestimate
+
+
         
 class Genre:
     def __init__(self, _game_id, _GenreIsNonGame=None, _GenreIsIndie=None, _GenreIsAction=None, _GenreIsAdventure=None, _GenreIsCasual=None, _GenreIsStrategy=None, _GenreIsRPG=None, _GenreIsSimulation=None, _GenreIsEarlyAccess=None, _GenreIsFreeToPlay=None,_GenreIsSports=None, _GenreIsRacing=None, _GenreIsMassivelyMultiplayer=None
@@ -43,6 +43,7 @@ class Genre:
         self.GenreIsRacing = _GenreIsRacing
         self.GenreIsMassivelyMultiplayer = _GenreIsMassivelyMultiplayer
 
+
 class Requirements:
     def __init__(self, _game_id, _response_id, _platformwindows=None, _platformlinux=None, _platformmac=None, _pcminreqtext=None, _linuxminreqtext=None, _macminreqtext=None, 
                  ):
@@ -53,10 +54,9 @@ class Requirements:
         self.platformmac = _platformmac
         self.pcminreqtext = _pcminreqtext
         self.linuxminreqtext = _linuxminreqtext
-        self.macminreqtext = _macminreqtext    
-
-
-
+        self.macminreqtext = _macminreqtext   
+        
+         
 class Review:
     def __init__(self, _game_id, _review_id, _language=None, _review=None, _timestamp_created=None, _votes_helpful=None, _votes_funny=None, _recommended=None, _author_steam_id=None
                  ):
@@ -69,12 +69,13 @@ class Review:
         self.votes_helpful = _votes_helpful
         self.votes_funny = _votes_funny
         self.author_steam_id = _author_steam_id
-        
+        self.author_steam_id = _author_steam_id
+
 
 class Author:
     def __init__(self, _steam_id, _num_games_owned=None, _num_reviews=None, _playtime_forever=None, _playtime_last_two_weeks=None, _last_played=None,
                  ):
-                 
+
         self.steam_id = _steam_id
         self.num_games_owned = _num_games_owned
         self.num_reviews = _num_reviews
