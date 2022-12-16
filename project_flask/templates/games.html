@@ -60,6 +60,31 @@ class="bg-image d-flex justify-content-center align-items-center"
   <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
 </div>
 
+
+<div style="width: 50%; margin: auto">
+  {% if reviews %}
+  <table class="table is-striped is-fullwidth">
+    {% for review in reviews %}
+      {% if loop.index % 2 == 0 %}
+              {% set bg_color = '#ffb6c1' %}
+          {% else %}
+              {% set bg_color = '#eee' %}
+          {% endif %}
+    <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
+      <p>#{{ loop.index }}</p>
+      
+      <p style="font-size: 24px">{{ reviews.review }}</p>
+      <p style="font-size: 24px">{{ reviews.author_steam_id }}</p>
+      <p style="font-size: 24px">{{ reviews.timestamp_created }}</p>
+      <p style="font-size: 24px">{{ reviews.votes_helpful }}</p>
+      <p style="font-size: 24px">{{ reviews.votes_funny }}</p>
+      <a href="/author_page/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
+    </div>
+    {% endfor %}
+    </table>
+  {% endif %}
+</div>
+
 {% endblock %}
 </div>
 </body>

@@ -1,0 +1,38 @@
+
+{% block title %}Author Profile{% endblock %}
+{% block content %}
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/pages.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
+    </head>
+<body>
+{%include 'navbar.html'%}
+
+<div class="text-center">
+<ul class="list-group list-group-flush" class="text-center">
+  <!--TODO: deal with if link does not exists-->
+  <li class="list-group-item">Steam ID: <p style="font-size: 24px">{{ adds.steam_id}}</p> </li>
+  <li class="list-group-item">Number of games this player owned: <p style="font-size: 24px">{{ adds.num_games_owned}}</p> </li>
+  <li class="list-group-item">Number of reviews made by this player: <p style="font-size: 24px">{{ adds.num_reviews}}</p> </li>
+  <li class="list-group-item">Total playtime: <p style="font-size: 24px">{{ adds.playtime_forever}}</p> </li>
+  <li class="list-group-item">Playtime in last 2 weeks: <p style="font-size: 24px">{{ adds.playtime_last_two_weeks}}</p> </li>
+  <li class="list-group-item">Last playes: <p style="font-size: 24px">{{ adds.last_played}}</p> </li>
+</ul>
+
+
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+</div>
+
+
+
+{% endblock %}
+ 

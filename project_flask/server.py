@@ -16,6 +16,7 @@ def create_app(debug=True):
     app.add_url_rule("/games/requirements/<game_id>", view_func=views.requirements_page)
     app.add_url_rule("/games/user_info", view_func=views.user_info_page)
     app.add_url_rule("/games/genre/<game_id>", view_func=views.genre_page)
+    app.add_url_rule("/games/author/<steam_id>", view_func=views.author_page)
     
     
     return app

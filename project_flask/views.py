@@ -28,7 +28,8 @@ def games_page(game_id):
     additional = db.get_additional()
     adds = db.get_adds(game_id)
     genre = db.get_genre(game_id)
-    return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre)
+    reviews = db.get_reviews(game_id)
+    return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, reviews=reviews)
 
 def price_info_page(game_id):
     db = Database(get_db())
@@ -46,4 +47,7 @@ def user_info_page(author_id):
     author = db.get_author(author_id)
     return render_template("user_info.html", selected_author=author)
 
-
+def author_page(author_id):
+    db = Database(get_db())
+    author = db.get_author(author_id)
+    return render_template("author.html", author=author)

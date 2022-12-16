@@ -58,7 +58,7 @@ class Requirements:
         
          
 class Review:
-    def __init__(self, _game_id, _review_id, _language=None, _review=None, _timestamp_created=None, _votes_helpful=None, _votes_funny=None, _recommended=None, _author_steam_id=None
+    def __init__(self, _game_id, _review_id, _language=None, _review=None, _timestamp_created=None, _votes_helpful=None, _votes_funny=None, _author_steam_id=None
                  ):
                  
         self.game_id = _game_id
@@ -68,7 +68,6 @@ class Review:
         self.timestamp_created = _timestamp_created
         self.votes_helpful = _votes_helpful
         self.votes_funny = _votes_funny
-        self.author_steam_id = _author_steam_id
         self.author_steam_id = _author_steam_id
 
 
