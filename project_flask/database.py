@@ -3,7 +3,7 @@ from games import Additional
 from games import Genre
 from games import Requirements
 from games import Review
-import psycopg2
+from games import Author
 
 class Database:
     def __init__(self, dbfile):
@@ -70,19 +70,20 @@ class Database:
         genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
         return genre
 
-    def get_reviews(self):
+    def get_reviews(self, game_id):
         reviews = []
         
         cursor = self.connection.cursor()
-        query = "SELECT review_id, language, review, timestamp_created, author_steam_id, recommended FROM Reviews WHERE (language = 'turkish') LIMIT 1000"
-        cursor.execute(query)
+        query = "SELECT review_id, language, review, timestamp_created, author_steam_id, recommended FROM Reviews WHERE (language = 'turkish' AND game_id = %s) LIMIT 100"
+        cursor.execute(query, (game_id,))
         for review_id, language, review, timestamp_created, author_steam_id, recommended in cursor:
             reviews.append((Review(review_id, language, review, timestamp_created, author_steam_id, recommended)))
+        return reviews
     
     def get_author(self, steam_id):
         cursor = self.connection.cursor()
         query = "SELECT steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played FROM Author WHERE (steam_id = %s)"
         cursor.execute(query, (steam_id,))
         results = cursor.fetchall()[0]
-        game_ = Game(results[0], results[2])
-        return game_
+        author_ = Author(results[0],results[1], results[2],  results[3], results[4], results[5])
+        return author_
