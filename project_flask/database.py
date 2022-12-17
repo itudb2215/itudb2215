@@ -5,6 +5,7 @@ from games import Requirements
 from games import Review
 from games import Author
 from games import Price_Info
+from games import Game_Tags
 
 class Database:
     def __init__(self, dbfile):
@@ -96,3 +97,11 @@ class Database:
         results = cursor.fetchone()
         price_info = Price_Info(results[0],results[1], results[2],  results[3], results[4], results[5], results[6], results[7], results[8])
         return price_info
+
+    def get_game_tags(self, game_id):
+        cursor = self.connection.cursor()
+        query = "SELECT tags_Id, game_id, addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter FROM Game_Tags WHERE (game_id = %s)"
+        cursor.execute(query, (game_id,))
+        results = cursor.fetchone()
+        game_tags = Game_Tags(results[0],results[1], results[2],  results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10],results[11], results[12],  results[13], results[14], results[15], results[16], results[17], results[18], results[19], results[20],results[21], results[22],  results[23], results[24], results[25], results[26])
+        return game_tags
