@@ -34,6 +34,7 @@ class="bg-image d-flex justify-content-center align-items-center"
 
 <ul class="list-group list-group-flush" class="text-center">
   <!--TODO: deal with if link does not exists-->
+  <li class="list-group-item">Game Info ID: <p style="font-size: 24px">{{ adds.gameinfo_Id}}</p> </li>
   <li class="list-group-item">Game ID: <p style="font-size: 24px">{{ adds.game_id}}</p> </li>
   <a href="{{ adds.supporturl}}" class="list-group-item list-group-item-action ">Support URL: <p style="font-size: 24px">{{ adds.supporturl}}</p> </li></a>
   <a href="{{ adds.website}}" class="list-group-item list-group-item-action ">Website: <p style="font-size: 24px">{{ adds.website}}</p> </li></a>
@@ -51,12 +52,14 @@ class="bg-image d-flex justify-content-center align-items-center"
   </div>
   {%endif%}
 </div>
+
 <div class="field is-grouped">
   <div class="control">
-    <button class="button is-danger is-small">Delete</button>
+    <a class="button is-danger is-small" href="{{url_for('info_delete_page', gameinfo_Id = adds.gameinfo_Id)}}"> Delete Additional Info</button>
   </div>
 </div>
 {% endif %}
+
 
 <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
 <a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
@@ -143,6 +146,7 @@ class="bg-image d-flex justify-content-center align-items-center"
           <p style="font-size: 24px">Multiplayer</p>
           {%endif%}
         
+          
         <div class="btn-group" role="group" aria-label="Basic outlined example">
           <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
           <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>

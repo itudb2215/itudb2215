@@ -6,12 +6,13 @@ from games import Review
 from games import Author
 from games import Price_Info
 from games import Game_Tags
+import psycopg2 as dbapi2
 
 class Database:
     def __init__(self, dbfile):
         self.connection = dbfile
         
-    
+
     """
     get_name function returns the game object belonging to selected id.
     
@@ -50,7 +51,7 @@ class Database:
 
     def get_adds(self, game_id):
         cursor = self.connection.cursor()
-        query = "SELECT game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate FROM Additional_game_info WHERE (game_id = %s)"
+        query = "SELECT gameinfo_Id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate FROM Additional_game_info WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
         adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
@@ -58,7 +59,7 @@ class Database:
 
     def get_requirements(self, game_id):
         cursor = self.connection.cursor()
-        query = "SELECT game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext FROM Platform_Requirements WHERE (game_id = %s)"
+        query = "SELECT platform_Id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext FROM Platform_Requirements WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
         requirements = Requirements(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
@@ -66,7 +67,7 @@ class Database:
 
     def get_genre(self, game_id):
         cursor = self.connection.cursor()
-        query = "SELECT game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer FROM Genre WHERE (game_id = %s)"
+        query = "SELECT genre_Id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer FROM Genre WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
         genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
@@ -151,5 +152,23 @@ class Database:
                 cursor.execute(query)
                 return i
 
- 
-  
+    def delete_genre(self, genre_id):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Genre WHERE genre_id = '{}'".format(genre_id)
+            cursor.execute(query)
+            connection.commit()
+
+    def delete_info(self, gameinfo_id):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Additional_game_info WHERE gameinfo_id = '{}'".format(gameinfo_id)
+            cursor.execute(query)
+            connection.commit()
+
+    def delete_requirements(self, platform_id):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Platform_Requirements WHERE platform_id = '{}'".format(platform_id)
+            cursor.execute(query)
+            connection.commit()

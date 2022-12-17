@@ -14,10 +14,6 @@ def home_page():
     day_name = today.strftime("%A")
     return render_template("home.html",day=day_name, games=games)
 
-def delete_page():
-    db = Database(get_db())
-    games = db.get_games()
-    return render_template("delete_additionalinfo.html", games=games)
 
 def genre_page(game_id):
     db = Database(get_db())
@@ -38,7 +34,7 @@ def games_page(game_id):
         return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews, game_tags=game_tags)
     else:
         db.delete_info(int(info_key))
-        return redirect(url_for("home_page"))
+        return redirect(url_for("home_page")) 
     
 
 def price_info_page(game_id):
@@ -127,5 +123,20 @@ def genre_add_page():
         db = Database(get_db())
         genre_key = db.add_genre(genre)
         return redirect(url_for("games_page", genre_key=genre_key))
+
+def genre_delete_page(genre_Id):
+        db = Database(get_db())
+        db.delete_genre(genre_Id)
+        return redirect(url_for("home_page"))
+
+def info_delete_page(gameinfo_Id):
+        db = Database(get_db())
+        db.delete_info(gameinfo_Id)
+        return redirect(url_for("home_page"))
+
+def requirements_delete_page(platform_Id):
+        db = Database(get_db())
+        db.delete_requirements(platform_Id)
+        return redirect(url_for("home_page"))
 
 

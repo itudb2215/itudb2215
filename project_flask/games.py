@@ -11,9 +11,9 @@ class Game:
 
 
 class Additional:
-    def __init__(self, _game_id, _background=None, _headerimage=None, _supporturl=None, _website=None, _recomendationcount=None, _steamspyowners=None, _steamspyplayersestimate=None
+    def __init__(self, _gameinfo_Id, _game_id, _background=None, _headerimage=None, _supporturl=None, _website=None, _recomendationcount=None, _steamspyowners=None, _steamspyplayersestimate=None
                  ):
-                 
+        self.gameinfo_Id = _gameinfo_Id         
         self.game_id = _game_id
         self.background = _background
         self.headerimage = _headerimage
@@ -26,8 +26,9 @@ class Additional:
 
         
 class Genre:
-    def __init__(self, _game_id, _GenreIsNonGame=None, _GenreIsIndie=None, _GenreIsAction=None, _GenreIsAdventure=None, _GenreIsCasual=None, _GenreIsStrategy=None, _GenreIsRPG=None, _GenreIsSimulation=None, _GenreIsEarlyAccess=None, _GenreIsFreeToPlay=None,_GenreIsSports=None, _GenreIsRacing=None, _GenreIsMassivelyMultiplayer=None
+    def __init__(self, _genre_Id, _game_id, _GenreIsNonGame=None, _GenreIsIndie=None, _GenreIsAction=None, _GenreIsAdventure=None, _GenreIsCasual=None, _GenreIsStrategy=None, _GenreIsRPG=None, _GenreIsSimulation=None, _GenreIsEarlyAccess=None, _GenreIsFreeToPlay=None,_GenreIsSports=None, _GenreIsRacing=None, _GenreIsMassivelyMultiplayer=None
                  ):
+        self.genre_Id = _genre_Id
         self.game_id = _game_id
         self.GenreIsNonGame = _GenreIsNonGame
         self.GenreIsIndie = _GenreIsIndie
@@ -45,8 +46,9 @@ class Genre:
 
 
 class Requirements:
-    def __init__(self, _game_id, _response_id, _platformwindows=None, _platformlinux=None, _platformmac=None, _pcminreqtext=None, _linuxminreqtext=None, _macminreqtext=None, 
+    def __init__(self, _platform_Id, _game_id, _response_id, _platformwindows=None, _platformlinux=None, _platformmac=None, _pcminreqtext=None, _linuxminreqtext=None, _macminreqtext=None, 
                  ):
+        self.platform_Id = _platform_Id
         self.game_id = _game_id
         self.response_id = _response_id
         self.platformwindows = _platformwindows
