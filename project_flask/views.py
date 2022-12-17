@@ -42,11 +42,6 @@ def requirements_page(game_id):
     requirements =  db.get_requirements(game_id)
     return render_template("requirements.html", selected_game=game, requirements=requirements)
 
-def user_info_page(author_id):
-    db = Database(get_db())
-    author = db.get_author(author_id)
-    return render_template("user_info.html", selected_author=author)
-
 def author_page(author_id):
     db = Database(get_db())
     author = db.get_author(author_id)
