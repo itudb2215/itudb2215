@@ -105,3 +105,37 @@ class Database:
         results = cursor.fetchone()
         game_tags = Game_Tags(results[0],results[1], results[2],  results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10],results[11], results[12],  results[13], results[14], results[15], results[16], results[17], results[18], results[19], results[20],results[21], results[22],  results[23], results[24], results[25], results[26])
         return game_tags
+
+    def add_info(self, info): #TODO: game_id ?????????? 
+        cursor = self.connection.cursor()
+        i=0
+        while(True):
+                query = "SELECT gameinfo_id FROM Additional_game_info WHERE gameinfo_id = '{}'".format(i)
+                cursor.execute(query)
+                row = cursor.fetchone()
+                if row is None:
+                    break
+                else:
+                    i+=1
+                query = "INSERT INTO Additional_game_info (gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES ('{}','{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, info.background, info.headerimage, info.supporturl, info.website, info.recomendationcount,info.steamspyowners,info.steamspyplayersestimate)
+                cursor.execute(query)
+                return i
+
+    def add_reqirements(self, requirements): #TODO: game_id ?????????? response_id????????????
+        cursor = self.connection.cursor()
+        i=0
+        while(True):
+                query = "SELECT platform_id FROM Platform_Requirements WHERE platform_id = '{}'".format(i)
+                cursor.execute(query)
+                row = cursor.fetchone()
+                if row is None:
+                    break
+                else:
+                    i+=1
+                query = "INSERT INTO Platform_Requirements (platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, i, requirements.platformwindows, requirements.platformlinux, requirements.platformmac, requirements.pcminreqtext, requirements.linuxminreqtext, requirements.macminreqtext)
+                cursor.execute(query)
+                return i
+
+ 
+
+  

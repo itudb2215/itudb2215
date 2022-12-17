@@ -2,6 +2,8 @@ from datetime import datetime
 from database_conn import get_db
 from database import Database 
 from games import Additional
+from games import Requirements
+from games import Genre
 
 from flask import render_template, redirect, request, url_for
 
@@ -25,14 +27,19 @@ def genre_page(game_id):
 
 def games_page(game_id):
     db = Database(get_db())
-    game = db.get_game(game_id)
-    additional = db.get_additional()
-    adds = db.get_adds(game_id)
-    genre = db.get_genre(game_id)
-    reviews = db.get_reviews(game_id)
-    requirements =  db.get_requirements(game_id)
-    game_tags = db.get_game_tags(game_id)
-    return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews, game_tags=game_tags)
+    if request.method == "GET":
+        game = db.get_game(game_id)
+        additional = db.get_additional()
+        adds = db.get_adds(game_id)
+        genre = db.get_genre(game_id)
+        reviews = db.get_reviews(game_id)
+        requirements =  db.get_requirements(game_id)
+        game_tags = db.get_game_tags(game_id)
+        return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews, game_tags=game_tags)
+    else:
+        db.delete_info(int(info_key))
+        return redirect(url_for("home_page"))
+    
 
 def price_info_page(game_id):
     db = Database(get_db())
@@ -53,8 +60,9 @@ def author_page(author_id):
 
 def info_add_page():
     if request.method == "GET":
+        values = {"game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
         return render_template(
-            "info_edit.html", 
+            "info_edit.html", values=values
         )
     else:
         _game_id = request.form["game_id"]
@@ -65,7 +73,30 @@ def info_add_page():
         _recomendationcount = request.form["recomendationcount"]
         _steamspyowners = request.form["steamspyowners"]
         _steamspyplayersestimate = request.form["steamspyplayersestimate"]        
-        add_info = Additional(_game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
+        info = Additional(_game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
         db = Database(get_db())
-        info_key = db.add_movie(add_info)
+        info_key = db.add_info(info)
         return redirect(url_for("games_page", info_key=info_key))
+
+def requirements_add_page():
+    if request.method == "GET":
+        values = {"game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+        return render_template(
+            "requirements_edit.html", values=values
+        )
+    else:
+        _game_id = request.form["game_id"]
+        _response_id = request.form["response_id"]
+        _platformwindows = request.form["platformwindows"]
+        _platformlinux = request.form["platformlinux"]
+        _platformmac = request.form["platformmac"]
+        _pcminreqtext = request.form["pcminreqtext"]    
+        _linuxminreqtext = request.form["linuxminreqtext"]
+        _macminreqtext = request.form["macminreqtext"]    
+        requirements = Requirements(_game_id, _response_id, _platformwindows, _platformlinux, _platformmac, _pcminreqtext, _linuxminreqtext, _macminreqtext)
+        db = Database(get_db())
+        requirements_key = db.add_reqirements(requirements)
+        return redirect(url_for("games_page", requirements_key=requirements_key))
+
+
+

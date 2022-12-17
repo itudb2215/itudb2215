@@ -28,7 +28,10 @@ class="bg-image d-flex justify-content-center align-items-center"
   <h1>{{ selected_game.query_name}}</h1>
 {%endif%}
 
+{% if adds %}
+<form action="" method="post" name="info_list">
 <div class="text-center">
+
 <ul class="list-group list-group-flush" class="text-center">
   <!--TODO: deal with if link does not exists-->
   <li class="list-group-item">Game ID: <p style="font-size: 24px">{{ adds.game_id}}</p> </li>
@@ -48,6 +51,12 @@ class="bg-image d-flex justify-content-center align-items-center"
   </div>
   {%endif%}
 </div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-danger is-small">Delete</button>
+  </div>
+</div>
+{% endif %}
 
 <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
 <a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
