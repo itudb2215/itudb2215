@@ -4,6 +4,7 @@ from games import Genre
 from games import Requirements
 from games import Review
 from games import Author
+from games import Price_Info
 
 class Database:
     def __init__(self, dbfile):
@@ -87,3 +88,11 @@ class Database:
         results = cursor.fetchall()[0]
         author_ = Author(results[0],results[1], results[2],  results[3], results[4], results[5])
         return author_
+
+    def get_price_info(self, game_id):
+        cursor = self.connection.cursor()
+        query = "SELECT price_Id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchassesavail, subscriptionavail FROM Price_Info WHERE (game_id = %s)"
+        cursor.execute(query, (game_id,))
+        results = cursor.fetchone()
+        price_info = Price_Info(results[0],results[1], results[2],  results[3], results[4], results[5], results[6], results[7], results[8])
+        return price_info
