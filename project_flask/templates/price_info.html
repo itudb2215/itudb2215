@@ -2,8 +2,35 @@
 {% block title %}Price Information{% endblock %}
 {% block content %}
 
-<h1>Price Information</h1>
-<p>//price table//</p>
+<div class="text-center"></div>
+<h1>Price Information of Game: {{price_info.game_id}}</h1>
+
+<ul class="list-group list-group-flush" class="text-center">
+    {% if price_info.isFree == true %}
+    <li class="list-group-item"><p style="font-size: 24px">Free</p></li>
+    {%endif}
+    {% if price_info.freeveravail == true %}
+    <li class="list-group-item"><p style="font-size: 24px">Free version is available</p></li>
+    {%endif}
+    <li class="list-group-item"><p style="font-size: 24px">Price Currency: </p><p style="font-size: 24px">{{ price_info.pricecurrency}}</p></li>
+    <li class="list-group-item"><p style="font-size: 24px">Initial Price: </p><p style="font-size: 24px">{{ price_info.priceinitial}}</p></li>
+    <li class="list-group-item"><p style="font-size: 24px">Final Price: </p><p style="font-size: 24px">{{ price_info.pricefinal}}</p></li>
+    {% if price_info.purchaseavail == true %}
+    <li class="list-group-item"><p style="font-size: 24px">Purchasing is available</p></li>
+    {%endif}
+    {% if price_info.subscriptionavail == true %}
+    <li class="list-group-item"><p style="font-size: 24px">Subscription is available</p></li>
+    {%endif}
+</ul>
+
+
 <a href="/games/price_info/purchase">Buy Now!</a>
+
+
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+    <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+    <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+    <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+  </div>
 
 {% endblock %}
