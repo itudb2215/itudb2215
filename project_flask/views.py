@@ -30,12 +30,14 @@ def games_page(game_id):
     genre = db.get_genre(game_id)
     reviews = db.get_reviews(game_id)
     requirements =  db.get_requirements(game_id)
-    return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews)
+    game_tags = db.get_game_tags(game_id)
+    return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews, game_tags=game_tags)
 
 def price_info_page(game_id):
     db = Database(get_db())
     game = db.get_game(game_id)
-    return render_template("price_info.html", selected_game=game)
+    price_info = db.get_price_info(game_id)
+    return render_template("price_info.html", selected_game=game, price_info=price_info)
 
 def requirements_page(game_id):
     db = Database(get_db())
