@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}Edit Info{% endblock %}
+{% block content %}
+    <h1 class="title">Edit Info</h1>
+
+    <form action="" method="post" name="info_edit">
+
+        <!--TODO: deal with game_id-->
+
+      <div class="image">
+            <label class="form-label" for="customFile">Select Background Image:</label>
+            <input type="file" class="form-control" name="background" accept="image/jpg, image/png, image/jpeg" />
+      </div>
+
+      <div class="image">
+        <label class="form-label" for="customFile">Select Header Image:</label>
+        <input type="file" class="form-control" name="headerimage" accept="image/jpg, image/png, image/jpeg" />
+      </div>
+        
+      <div class="field">
+        <label for="title" class="label">Support URL</label>
+        <div class="control">
+          <input type="text" name="supporturl" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Website</label>
+        <div class="control">
+          <input type="text" name="website" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="year" class="label">Recomendation Count</label>
+        <div class="control">
+          <input type="number" name="recomendationcount" class="input"/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="year" class="label">Number of Owners</label>
+        <div class="control">
+          <input type="number" name="steamspyowners" class="input"/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="year" class="label">Number of Estimated Players</label>
+        <div class="control">
+          <input type="number" name="steamspyplayersestimate" class="input"/>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Save</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}

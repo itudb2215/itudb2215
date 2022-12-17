@@ -1,8 +1,9 @@
 from datetime import datetime
 from database_conn import get_db
 from database import Database 
+from games import Additional
 
-from flask import render_template, redirect
+from flask import render_template, redirect, request, url_for
 
 def home_page():
     db = Database(get_db())
@@ -49,3 +50,22 @@ def author_page(author_id):
     db = Database(get_db())
     author = db.get_author(author_id)
     return render_template("author.html", author=author)
+
+def info_add_page():
+    if request.method == "GET":
+        return render_template(
+            "info_edit.html", 
+        )
+    else:
+        _game_id = request.form["game_id"]
+        _background = request.form["background"]
+        _headerimage = request.form["headerimage"]
+        _supporturl = request.form["supporturl"]
+        _website = request.form["website"]    
+        _recomendationcount = request.form["recomendationcount"]
+        _steamspyowners = request.form["steamspyowners"]
+        _steamspyplayersestimate = request.form["steamspyplayersestimate"]        
+        add_info = Additional(_game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
+        db = Database(get_db())
+        info_key = db.add_movie(add_info)
+        return redirect(url_for("games_page", info_key=info_key))
