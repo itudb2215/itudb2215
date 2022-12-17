@@ -136,6 +136,20 @@ class Database:
                 cursor.execute(query)
                 return i
 
- 
+    def add_genre(self, genre): #TODO: game_id ?????????? 
+        cursor = self.connection.cursor()
+        i=0
+        while(True):
+                query = "SELECT genre_id FROM Genre WHERE genre_id = '{}'".format(i)
+                cursor.execute(query)
+                row = cursor.fetchone()
+                if row is None:
+                    break
+                else:
+                    i+=1
+                query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
+                cursor.execute(query)
+                return i
 
+ 
   

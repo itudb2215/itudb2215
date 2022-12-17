@@ -60,11 +60,12 @@ def author_page(author_id):
 
 def info_add_page():
     if request.method == "GET":
-        values = {"game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
+        values = {"gameinfo_id":"","game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
         return render_template(
             "info_edit.html", values=values
         )
     else:
+        _gameinfo_id = request.form["gameinfo_id"]
         _game_id = request.form["game_id"]
         _background = request.form["background"]
         _headerimage = request.form["headerimage"]
@@ -73,18 +74,19 @@ def info_add_page():
         _recomendationcount = request.form["recomendationcount"]
         _steamspyowners = request.form["steamspyowners"]
         _steamspyplayersestimate = request.form["steamspyplayersestimate"]        
-        info = Additional(_game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
+        info = Additional(_gameinfo_id, _game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
         db = Database(get_db())
         info_key = db.add_info(info)
         return redirect(url_for("games_page", info_key=info_key))
 
 def requirements_add_page():
     if request.method == "GET":
-        values = {"game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+        values = {"_platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
         return render_template(
             "requirements_edit.html", values=values
         )
     else:
+        _platform_id = request.form["platform_id"]
         _game_id = request.form["game_id"]
         _response_id = request.form["response_id"]
         _platformwindows = request.form["platformwindows"]
@@ -93,10 +95,37 @@ def requirements_add_page():
         _pcminreqtext = request.form["pcminreqtext"]    
         _linuxminreqtext = request.form["linuxminreqtext"]
         _macminreqtext = request.form["macminreqtext"]    
-        requirements = Requirements(_game_id, _response_id, _platformwindows, _platformlinux, _platformmac, _pcminreqtext, _linuxminreqtext, _macminreqtext)
+        requirements = Requirements(_platform_id, _game_id, _response_id, _platformwindows, _platformlinux, _platformmac, _pcminreqtext, _linuxminreqtext, _macminreqtext)
         db = Database(get_db())
         requirements_key = db.add_reqirements(requirements)
         return redirect(url_for("games_page", requirements_key=requirements_key))
 
+
+def genre_add_page():
+    if request.method == "GET":
+        values = {"genre_id":"","game_id": "", "GenreIsNonGame": "", "GenreIsIndie": "","GenreIsAction": "","GenreIsAdventure": "","GenreIsCasual": "","GenreIsStrategy": "","GenreIsRPG": "","GenreIsSimulation": "","GenreIsEarlyAccess": "","GenreIsFreeToPlay": "","GenreIsSports": "","GenreIsRacing": "","GenreIsMassivelyMultiplayer": ""}
+        return render_template(
+            "genre_edit.html", values=values
+        )
+    else:
+        _genre_id = request.form["genre_id"]
+        _game_id = request.form["game_id"]
+        _GenreIsNonGame = request.form["GenreIsNonGame"]
+        _GenreIsIndie = request.form["GenreIsIndie"]
+        _GenreIsAction = request.form["GenreIsAction"]
+        _GenreIsAdventure = request.form["GenreIsAdventure"]
+        _GenreIsCasual = request.form["GenreIsCasual"]
+        _GenreIsStrategy = request.form["GenreIsStrategy"]    
+        _GenreIsRPG = request.form["GenreIsRPG"]
+        _GenreIsSimulation = request.form["GenreIsSimulation"]    
+        _GenreIsEarlyAccess = request.form["GenreIsEarlyAccess"]
+        _GenreIsFreeToPlay = request.form["GenreIsFreeToPlay"]
+        _GenreIsSports = request.form["GenreIsSports"]    
+        _GenreIsRacing = request.form["GenreIsRacing"]
+        _GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
+        genre = Genre(_genre_id, _game_id, _GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
+        db = Database(get_db())
+        genre_key = db.add_genre(genre)
+        return redirect(url_for("games_page", genre_key=genre_key))
 
 
