@@ -6,6 +6,9 @@ from games import Requirements
 from games import Genre
 from games import Price_Info
 from games import Game_Tags
+from games import Game
+from games import Review
+from games import Author
 
 from flask import render_template, redirect, request, url_for
 
@@ -323,3 +326,53 @@ def tags_update_page(game_id):
         shooter = request.form.data["shooter"]
         db.game_tags_update(tags_Id, game_id, addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter)
         return redirect(url_for("game_tags_page", game_id=game_id))
+
+def game_insert_page():
+    if request.method == "GET":
+        values = {"query_name": "", "release_year": "", "required_age": "", "metacritic": "", "about_text": ""}
+        return render_template("game_insert.html", values = values)
+    else:
+        query_name = request.form["query_name"]
+        release_year = request.form["release_year"]
+        required_age = request.form["required_age"]
+        metacritic = request.form["metacritic"]
+        about_text = request.form["about_text"]
+        image_url = request.form["image_url"]
+        game = Game(1, query_name, release_year, required_age, metacritic, about_text, image_url)
+        db = Database(get_db())
+        game_id = db.add_game(game)
+        return redirect(url_for("home_page", game_id=game_id))
+    
+    
+def review_insert_page():
+    if request.method == "GET":
+        values = {"game_id": "", "language": "", "review": "", "timestamp_created": "", "votes_helpful": "", "votes_funny": "", "recommended": "", "author_steam_id": ""}
+        return render_template("review_insert.html", values = values)
+    else:
+        game_id = request.form["game_id"]
+        release_year = request.form["release_year"]
+        required_age = request.form["required_age"]
+        query_name = request.form["query_name"]
+        metacritic = request.form["metacritic"]
+        about_text = request.form["about_text"]
+        image_url = request.form["image_url"]
+        review = Review(1,game_id, release_year, required_age, query_name, metacritic, about_text, image_url)
+        db = Database(get_db())
+        review_id = db.add_review(review)
+        return redirect(url_for("review_insert_page", review_id=review_id))
+
+def author_insert_page():
+    if request.method == "GET":
+        values = {"steam_id": "", "num_games_owned": "", "num_reviews": "", "playtime_forever": "", "playtime_last_two_weeks": "", "last_played": ""}
+        return render_template("author_insert.html", values = values)
+    else:
+        steam_id = request.form["steam_id"]
+        num_games_owned = request.form["num_games_owned"]
+        num_reviews = request.form["num_reviews"]
+        playtime_forever = request.form["playtime_forever"]
+        playtime_last_two_weeks = request.form["playtime_last_two_weeks"]
+        last_played = request.form["last_played"]
+        author = Author(steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played)
+        db = Database(get_db())
+        author_id = db.add_author(author)
+        return redirect(url_for("author_insert_page", author_id=author_id))

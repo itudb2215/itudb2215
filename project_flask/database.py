@@ -264,3 +264,47 @@ class Database:
             query = "UPDATE Game_Tags SET addictive={} AND adventure={} AND co_op={} AND comedy={} AND crime={} AND drama={} AND dystopian_={} AND education={} AND emotional={} AND epic={} AND family_friendly={} AND farming={} AND fighting={} AND flight={} AND football={} AND funny={} AND gambling={} AND hacking={} AND horror={} AND indie={} AND magic={} AND mythology={} AND platformer={} AND rpg={} AND shooter={} AND WHERE game_id='{}'".format(addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter)
             cursor.execute(query)
             connection.commit()
+            
+            
+    def add_game(self, game): # INSERT method for Main_Table
+        cursor = self.connection.cursor()
+        i=0
+        j=0
+        query = "SELECT MAX(game_id) FROM Main_Table"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i = i+1
+        query = "SELECT MAX(response_id) FROM Main_Table"
+        cursor.execute(query)
+        j = cursor.fetchone()[0]
+        j = j+1
+        query = "INSERT INTO Main_table (game_id, response_id,query_name, release_date ,required_age, metacritic, about_text) VALUES ('{}', '{}','{}', '{}','{}', '{}','{}')".format(i, j, game.query_name, game.release_year, game.required_age, game.metacritic, game.about_text)
+        cursor.execute(query)
+        return i
+    
+    
+    def add_author(self, author): # INSERT method for Author table
+        cursor = self.connection.cursor()
+        i=0
+        query = "SELECT MAX(steam_id) FROM Author"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i = i+1
+        query = "INSERT INTO Author (steam_id, num_games_owned,num_reviews,playtime_forever,playtime_last_two_weeks,last_played) VALUES ('{}', '{}','{}', '{}', '{}', '{}')".format(i,author.num_games_owned, author.num_reviews, author.playtime_forever, author.playtime_last_two_weeks, author.last_played)
+        cursor.execute(query)
+        return i
+    
+    def add_review(self, review): # INSERT method for Reviews table
+        cursor = self.connection.cursor()
+        i=0
+        query = "SELECT MAX(game_id) FROM Main_Table"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i = i+1
+        # add author id to author table first
+        query = "INSERT INTO Author (steam_id) VALUES ('{}')".format(i)
+        cursor.execute(query) 
+        # game id should be valid for this operation
+        query = "INSERT INTO Reviews (review_id, game_id, language, review, timestamp_created, votes_helpful, votes_funny,recommended,author_steam_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, review.game_id, review.language, review.review, review.timestamp_created, review.votes_helpful, review.votes_funny, review.recommended, review.author_steam_id)
+        cursor.execute(query)
+        return i

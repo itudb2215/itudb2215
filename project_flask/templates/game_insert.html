@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}Add Game{% endblock %}
+{% block content %}
+    <h1 class="title">Add a brand new game!</h1>
+
+
+    <form method="POST" name="game_insert_page">
+
+      <div class="field">
+        <label for="title" class="label">Name:</label>
+        <div class="control">
+          <input type="text" name="query_name" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Release Date:</label>
+        <div class="control">
+          <input type="text" name="release_year" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Required Age:</label>
+        <div class="control">
+          <input type="text" name="required_age" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Metacritic:</label>
+        <div class="control">
+          <input type="text" name="metacritic" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">About Text:</label>
+        <div class="control">
+          <input type="text" name="about_text" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Image Url:</label>
+        <div class="control">
+          <input type="text" name="image_url" class="input" />
+        </div>
+      </div>
+
+
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Save</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}
