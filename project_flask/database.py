@@ -46,7 +46,10 @@ class Database:
         query = "SELECT gameinfo_Id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate FROM Additional_game_info WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
-        adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
+        try:
+            adds = Additional(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8])    
+        except:
+            adds = Additional(-1, game_id)
         return adds
 
     def get_requirements(self, game_id):
@@ -54,7 +57,10 @@ class Database:
         query = "SELECT platform_Id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext FROM Platform_Requirements WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
-        requirements = Requirements(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7])    
+        try:
+            requirements = Requirements(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8])    
+        except:
+            requirements = Requirements(-1, game_id)
         return requirements    
 
     def get_genre(self, game_id):
@@ -62,7 +68,10 @@ class Database:
         query = "SELECT genre_Id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer FROM Genre WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchone()
-        genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
+        try:
+            genre = Genre(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], results[11], results[12], results[13])    
+        except:
+            genre = Genre(-1, game_id)
         return genre
 
     def get_reviews(self, game_id):
@@ -110,11 +119,12 @@ class Database:
         query = "SELECT MAX(game_id) FROM Additional_game_info"
         cursor.execute(query)
         j = cursor.fetchone()[0]
-        j = j+10
+        j = j+100
         query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
         cursor.execute(query)
         query = "INSERT INTO Additional_game_info (gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES ('{}','{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, info.background, info.headerimage, info.supporturl, info.website, info.recomendationcount,info.steamspyowners,info.steamspyplayersestimate)
         cursor.execute(query)
+        self.connection.commit()
         return i
 
     def add_reqirements(self, requirements): #TODO: game_id ?????????? response_id????????????
@@ -128,11 +138,12 @@ class Database:
         query = "SELECT MAX(game_id) FROM Platform_Requirements"
         cursor.execute(query)
         j = cursor.fetchone()[0]
-        j = j+10
+        j = j+160
         query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
         cursor.execute(query)
         query = "INSERT INTO Platform_Requirements (platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, j, requirements.platformwindows, requirements.platformlinux, requirements.platformmac, requirements.pcminreqtext, requirements.linuxminreqtext, requirements.macminreqtext)
         cursor.execute(query)
+        self.connection.commit()
         return i
 
     def add_genre(self, genre): #TODO: game_id ?????????? 
@@ -143,59 +154,61 @@ class Database:
         cursor.execute(query)
         i = cursor.fetchone()[0]
         i = i+1
+        print(i)
         query = "SELECT MAX(game_id) FROM Genre"
         cursor.execute(query)
         j = cursor.fetchone()[0]
-        j = j+10
+        j = j+130
         query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
         cursor.execute(query)
         query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
         cursor.execute(query)
+        self.connection.commit()
         return i
 
     def delete_genre(self, game_id):
-        with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
             query = "DELETE FROM Genre WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
+            #connection.commit()
 
     def delete_info(self, game_id):
-        with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
             query = "DELETE FROM Additional_game_info WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
+            #connection.commit()
 
     def delete_requirements(self, game_id):
-        with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
             query = "DELETE FROM Platform_Requirements WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
+            #connection.commit()
 
 
 
-    def update_genre(self, genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer):
-        with dbapi2.connect(self.dbfile) as connection:
-            cursor = connection.cursor()
-            query = "UPDATE Genre SET GenreIsNonGame = {} AND GenreIsIndie = {} AND GenreIsAction = {} AND GenreIsAdventure = {} AND GenreIsCasual = {} AND GenreIsStrategy = {} AND GenreIsRPG = {} AND GenreIsSimulation = {} AND GenreIsEarlyAccess = {} AND GenreIsFreeToPlay = {} AND GenreIsSports = {} AND GenreIsRacing = {}  AND GenreIsMassivelyMultiplayer = {} WHERE  game_id = '{}'".format(GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
+    def update_genre(self, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer):
+
+            cursor = self.connection.cursor()
+            query = "UPDATE Genre SET GenreIsNonGame = '{}' , GenreIsIndie = '{}' , GenreIsAction = '{}' , GenreIsAdventure = '{}' , GenreIsCasual = '{}' , GenreIsStrategy = '{}' , GenreIsRPG = '{}' , GenreIsSimulation = '{}' , GenreIsEarlyAccess = '{}' , GenreIsFreeToPlay = '{}' , GenreIsSports = '{}' , GenreIsRacing = '{}'  , GenreIsMassivelyMultiplayer = '{}' WHERE  game_id = '{}'".format(GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer, game_id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
 
-    def update_info(self, gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate):
-        with dbapi2.connect(self.dbfile) as connection:
-            cursor = connection.cursor()
-            query = "UPDATE Additional_game_info SET background = {} AND headerimage = {} AND supporturl = {} AND website = {} AND recomendationcount = {} AND steamspyowners = {} AND steamspyplayersestimate = {} WHERE  game_id = '{}'".format(background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
-            cursor.execute(query)
-            connection.commit()
+    def update_info(self, game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate):
 
-    def update_requirements(self, platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext):
-        with dbapi2.connect(self.dbfile) as connection:
-            cursor = connection.cursor()
-            query = "UPDATE Platform_Requirements SET platformwindows = {} AND platformlinux = {} AND platformmac = {} AND pcminreqtext = {} AND linuxminreqtext = {} AND macminreqtext = {} WHERE  game_id = '{}'".format(response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
+            cursor = self.connection.cursor()
+            query = "UPDATE Additional_game_info SET background = '{}' , headerimage = '{}' , supporturl = '{}' , website = '{}' , recomendationcount = '{}' , steamspyowners = '{}' , steamspyplayersestimate = '{}' WHERE  game_id = '{}'".format(background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate, game_id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
+
+    def update_requirements(self, game_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext):
+
+            cursor = self.connection.cursor()
+            query = "UPDATE Platform_Requirements SET platformwindows = {} , platformlinux = {} , platformmac = {} , pcminreqtext = '{}' , linuxminreqtext = '{}' , macminreqtext = '{}' WHERE  game_id = '{}'".format(platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext,game_id)
+            cursor.execute(query)
+            self.connection.commit()
 
 
     def price_info_create(self, price_info):
@@ -218,14 +231,14 @@ class Database:
             cursor = self.connection.cursor()
             query = "DELETE FROM Price_Info WHERE price_Id = '{}'".format(price_Id)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
 
     def price_info_update(self, price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail):
         with dbapi2.connect(self.dbfile) as connection:
             cursor = connection.cursor()
             query = "UPDATE Price_Info SET isFree={} AND freeveravail={} AND pricecurrency={} AND priceinitial={} AND pricefinal={} AND purchassesavail={} AND subscriptionavail={} WHERE game_id='{}'".format(isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail)
             cursor.execute(query)
-            connection.commit()
+            self.connection.commit()
 
     def game_tags_create(self, tags):
         cursor = self.conencion.cursor()

@@ -1,48 +1,51 @@
 {% extends "layout.html" %}
-{% block title %}Update Requirements{% endblock %}
+{% block title %}Update Requirements of {{selected_game.query_name}}{% endblock %}
 {% block content %}
     <h1 class="title  has-text-info-dark">Update Requirements</h1>  <!--Add game name info-->
 
     <form action="" method="post" name="update_reqirements_page">
-        <div class="field">
+          <div class="field">
             <label for="title" class="label">Windows</label>
             <div class="control">
-              <input type="checkbox" name="platformwindows" class="input" />
+              <input type="checkbox" name="platformwindows" value="True" /> Yes<br>
+              <input type="checkbox" name="platformwindows" value="False" /> No<br>
             </div>
           </div>
-    
+
           <div class="field">
             <label for="title" class="label">Linux</label>
             <div class="control">
-              <input type="checkbox" name="platformlinux" class="input" />
+              <input type="checkbox" name="platformlinux" value="True" /> Yes<br>
+              <input type="checkbox" name="platformlinux" value="False" /> No<br>
             </div>
           </div>
-    
+
           <div class="field">
             <label for="year" class="label">Mac</label>
             <div class="control">
-              <input type="checkbox" name="platformmac" class="input"/>
+              <input type="checkbox" name="platformmac" value="True" /> Yes<br>
+              <input type="checkbox" name="platformmac" value="False" /> No<br>
             </div>
           </div>
     
           <div class="field">
             <label for="title" class="label">PC minimum requirements</label>
             <div class="control">
-              <input type="text" name="pcminreqtext" class="input" />
+              <input type="text" name="pcminreqtext" class="input" value="{{requirements.pcminreqtext}}"/>
             </div>
           </div>
     
           <div class="field">
             <label for="title" class="label">Linux minimum requirements</label>
             <div class="control">
-              <input type="text" name="linuxminreqtext" class="input" />
+              <input type="text" name="linuxminreqtext" class="input" value="{{requirements.linuxminreqtext}}"/>
             </div>
           </div>
     
           <div class="field">
             <label for="title" class="label">Mac minimum requirements</label>
             <div class="control">
-              <input type="text" name="macminreqtext" class="input" />
+              <input type="text" name="macminreqtext" class="input" value="{{requirements.macminreqtext}}"/>
             </div>
           </div>
     

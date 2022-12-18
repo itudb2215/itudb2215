@@ -10,14 +10,20 @@ from games import Game
 from games import Review
 from games import Author
 
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, session
 
 def home_page():
     db = Database(get_db())
     games = db.get_games()
     today = datetime.today()
     day_name = today.strftime("%A")
-    return render_template("home.html",day=day_name, games=games)
+    try:
+        last_game = session["last_game"]
+    except:
+        last_game = "Not visited any games yet."
+    
+    print(last_game)
+    return render_template("home.html",day=day_name, games=games, last_game=last_game)
 
 
 def genre_page(game_id):
@@ -35,9 +41,10 @@ def games_page(game_id):
         genre = db.get_genre(game_id)
         reviews = db.get_reviews(game_id)
         requirements =  db.get_requirements(game_id)
+        session["last_game"] = game_id
         return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews)
     else:
-        db.delete_info(int(gameinfo_Id))
+        db.delete_info(game_id)
         return redirect(url_for("home_page")) 
     
 
@@ -72,8 +79,7 @@ def info_add_page():
         recomendationcount = request.form["recomendationcount"]
         steamspyowners = request.form["steamspyowners"]
         steamspyplayersestimate = request.form["steamspyplayersestimate"]        
-        info = Additional(1,1,background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
-        #db = current_app.config["db"]
+        info = Additional(None,None,background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
         db = Database(get_db())
         info_key = db.add_info(info)
         return redirect(url_for("home_page"))
@@ -91,8 +97,7 @@ def requirements_add_page():
         pcminreqtext = request.form["pcminreqtext"]    
         linuxminreqtext = request.form["linuxminreqtext"]
         macminreqtext = request.form["macminreqtext"]    
-        requirements = Requirements(1,1,1, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
-        #db = current_app.config["db"]
+        requirements = Requirements(None,None,None, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
         db = Database(get_db())
         requirements_key = db.add_reqirements(requirements)
         return redirect(url_for("home_page"))
@@ -128,7 +133,7 @@ def genre_add_page():
 def genre_delete_page(game_id):
         db = Database(get_db())
         db.delete_genre(game_id)
-        return redirect(url_for("home_page"))
+        return redirect(url_for("games_page", game_id=game_id))
 
 def info_delete_page(game_id):
         db = Database(get_db())
@@ -138,7 +143,7 @@ def info_delete_page(game_id):
 def requirements_delete_page(game_id):
         db = Database(get_db())
         db.delete_requirements(game_id)
-        return redirect(url_for("home_page"))
+        return redirect(url_for("games_page", game_id=game_id))
 
 
 def update_genre_page(game_id): #genre_Id mi game_id mi????
@@ -165,12 +170,12 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
             GenreIsRacing = request.form["GenreIsRacing"]
             GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
             #genre = Genre(_GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
-            db.update_genre(1, 1, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
+            db.update_genre(game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             return redirect(url_for("games_page", game_id=game_id)) #TODO: genre_Id değil game_id
 
-def update_info_page(game_id): #genre_Id mi game_id mi????
+def update_info_page(game_id): 
         db = Database(get_db())
-        info = db.get_additional() #get_additional(game_id)
+        info = db.get_adds(game_id) 
         if request.method == "GET":
             values = {"background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
             return render_template(
@@ -184,7 +189,7 @@ def update_info_page(game_id): #genre_Id mi game_id mi????
             recomendationcount = request.form["recomendationcount"]
             steamspyowners = request.form["steamspyowners"]
             steamspyplayersestimate = request.form["steamspyplayersestimate"]        
-            db.update_info(1, 1, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
+            db.update_info(game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
             return redirect(url_for("games_page", game_id=game_id))
 
 def update_requirements_page(game_id): #genre_Id mi game_id mi????
@@ -202,7 +207,7 @@ def update_requirements_page(game_id): #genre_Id mi game_id mi????
             pcminreqtext = request.form["pcminreqtext"]    
             linuxminreqtext = request.form["linuxminreqtext"]
             macminreqtext = request.form["macminreqtext"]    
-            db.update_requirements(1,1,1,platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
+            db.update_requirements(game_id,platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
             return redirect(url_for("games_page", game_id=game_id))
 
 def price_create_page():

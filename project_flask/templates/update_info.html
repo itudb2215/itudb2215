@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Update Info{% endblock %}
+{% block title %}Update Info of {{selected_game.query_name}}{% endblock %}
 {% block content %}
     <h1 class="title  has-text-info-dark">Update Info</h1>  <!--Add game name info-->
 
@@ -17,35 +17,35 @@
         <div class="field">
             <label for="title" class="label">Support URL</label>
             <div class="control">
-            <input type="text" name="supporturl" class="input" />
+            <input type="text" name="supporturl" class="input" value="{{info.supporturl}}"/>
             </div>
         </div>
 
         <div class="field">
             <label for="title" class="label">Website</label>
             <div class="control">
-            <input type="text" name="website" class="input" />
+            <input type="text" name="website" class="input" value="{{info.website}}"/>
             </div>
         </div>
 
         <div class="field">
             <label for="year" class="label">Recomendation Count</label>
             <div class="control">
-            <input type="number" name="recomendationcount" class="input"/>
+            <input type="number" name="recomendationcount" class="input" value="{{info.recomendationcount}}"/>
             </div>
         </div>
 
         <div class="field">
             <label for="year" class="label">Number of Owners</label>
             <div class="control">
-            <input type="number" name="steamspyowners" class="input"/>
+            <input type="number" name="steamspyowners" class="input" value="{{info.steamspyowners}}"/>
             </div>
         </div>
 
         <div class="field">
             <label for="year" class="label">Number of Estimated Players</label>
             <div class="control">
-            <input type="number" name="steamspyplayersestimate" class="input"/>
+            <input type="number" name="steamspyplayersestimate" class="input" value="{{info.steamspyplayersestimate}}"/>
             </div>
         </div>
 
@@ -56,3 +56,4 @@
         </div>
     </form>
 {% endblock %}
+

@@ -59,11 +59,10 @@
   </div>
 </div>
 
-<div class="btn-group" role="group" aria-label="Basic outlined example">
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-</div>
+<a href="/games/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Return to Game</a>
+<a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
+
+
 </div>
 </div>
 {% endblock %}
