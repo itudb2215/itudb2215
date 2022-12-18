@@ -1,3 +1,4 @@
+from multiprocessing import connection
 from games import Game
 from games import Additional
 from games import Genre
@@ -196,3 +197,17 @@ class Database:
             query = "INSERT INTO Price_Info (price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, price_info.isFree, price_info.freeveravail, price_info.pricecurrency, price_info.priceinitial, price_info.pricefinal, price_info.purchaseavail, price_info.subscriptionavail)
             cursor.execute(query)
             return i
+
+    def price_info_delete(self, price_Id):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Price_Info WHERE price_Id = '{}'".format(price_Id)
+            cursor.execute(query)
+            connection.commit()
+
+    def price_info_update(self, price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Price_Info SET isFree={} AND freeveravail={} AND pricecurrency={} AND priceinitial={} AND pricefinal={} AND purchassesavail={} AND subscriptionavail={} WHERE game_id='{}'".format(isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail)
+            cursor.execute(query)
+            connection.commit()

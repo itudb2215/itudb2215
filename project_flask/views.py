@@ -4,6 +4,7 @@ from database import Database
 from games import Additional
 from games import Requirements
 from games import Genre
+from games import Price_Info
 
 from flask import render_template, redirect, request, url_for, current_app
 
@@ -172,7 +173,7 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
             db.update_genre(genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             return redirect(url_for("games_page", game_id=game_id)) #TODO: genre_Id değil game_id
 
-def price_edit_page():
+def price_create_page():
     if request.method == "GET":
         values = {"price_id": "", "game_id": "", "isFree": "", "freeveravail": "", "pricecurrency": "", "priceinitial": "", "pricefinal": "", "purchaseavail": "", "subscriptionavail": ""}
         return render_template("price_edit.html", values = values)
@@ -186,7 +187,31 @@ def price_edit_page():
         _pricefinal = request.form["pricefinal"]
         _purchaseavail = request.form["purchaseavail"]
         _subscriptionavail = request.form["subscriptionavail"]
-        info = Price_Info(_price_id, _game_id, _isFree, _freeveravail, _pricecurrency, _priceinitial, _pricefinal, _purchaseavail, _subscriptionavail)
+        price_info = Price_Info(_price_id, _game_id, _isFree, _freeveravail, _pricecurrency, _priceinitial, _pricefinal, _purchaseavail, _subscriptionavail)
         db = Database(get_db())
         price_key = db.price_info_create(price_info)
-        return redirect(url_for("price_info.html", price_key=price_key))
+        return redirect(url_for("price_info_page", price_key=price_key))
+
+def price_delete_page(price_Id):
+    db = Database(get_db())
+    db.price_info_delete(price_Id)
+    return redirect(url_for("home_page"))
+
+def price_update_page(game_id):
+    db = Database(get_db())
+    price_info = db.get_price_info(game_id)
+    if request.method == "GET":
+        values = {"price_Id":"", "game_id":"", "isFree":"", "freeveravail":"", "pricecurrency":"", "priceinitial":"", "pricefinal":"", "purchassesavail":"", "subscriptionavail":""}
+        return render_template("price_update.html", values=values, price_info=price_info)
+    else:
+        price_id = request.form["price_id"]
+        game_id = request.form["game_id"]
+        isFree = request.form.data["isFree"]
+        freeveravail = request.form.data["freeveravail"]
+        pricecurrency = request.form.data["pricecurrency"]
+        priceinitial = request.form.data["priceinitial"]
+        pricefinal = request.form.data["pricefinal"]
+        purchaseavail = request.form.data["purchaseavail"]
+        subscriptionavail = request.form.data["subscriptionavail"]
+        db.price_info_update(price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail)
+        return redirect(url_for("price_info_page", game_id=game_id))
