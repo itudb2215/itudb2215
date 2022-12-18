@@ -149,7 +149,9 @@ class Database:
         query = "SELECT MAX(game_id) FROM Genre"
         cursor.execute(query)
         j = cursor.fetchone()[0]
-        i = i+10
+        j = j+1657
+        query = "INSERT INTO Main_table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
+        cursor.execute(query)
         query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
         cursor.execute(query)
         return i
@@ -246,7 +248,7 @@ class Database:
     def game_tags_delete(self, tags_Id):
         with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
-            query = "DELETE FROM Game_Tags WHERE tags_Id = '{}'".format(tags_Id)
+            query = "DELETE FROM Game_Tags WHERE tags_Id = '{} '".format(tags_Id)
             cursor.execute(query)
             connection.commit()
 

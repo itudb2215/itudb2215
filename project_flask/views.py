@@ -109,14 +109,11 @@ def genre_add_page():
     else:
 
         GenreIsNonGame = request.form["GenreIsNonGame"]
-        print(GenreIsNonGame)  
-        print("2")
         GenreIsIndie = request.form["GenreIsIndie"]
         GenreIsAction = request.form["GenreIsAction"]
         GenreIsAdventure = request.form["GenreIsAdventure"]
         GenreIsCasual = request.form["GenreIsCasual"]
         GenreIsStrategy = request.form["GenreIsStrategy"]  
-        print(GenreIsStrategy)  
         GenreIsRPG = request.form["GenreIsRPG"]
         GenreIsSimulation = request.form["GenreIsSimulation"]    
         GenreIsEarlyAccess = request.form["GenreIsEarlyAccess"]
@@ -124,13 +121,10 @@ def genre_add_page():
         GenreIsSports = request.form["GenreIsSports"]    
         GenreIsRacing = request.form["GenreIsRacing"]
         GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
-        print(GenreIsMassivelyMultiplayer)
         genre = Genre(1,1,GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual, GenreIsStrategy, GenreIsRPG, GenreIsSimulation, GenreIsEarlyAccess, GenreIsFreeToPlay, GenreIsSports, GenreIsRacing, GenreIsMassivelyMultiplayer)
         #db = current_app.config["db"]
         db = Database(get_db())
-        print("nabeerihi")
         genre_key = db.add_genre(genre)
-        print("nabeer")
         return redirect(url_for("home_page")) #TODO: genre_key değil game_id
 
 def genre_delete_page(game_id):
