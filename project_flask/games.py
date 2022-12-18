@@ -101,7 +101,7 @@ class Price_Info:
         
 
 class Game_Tags:
-    def __init__(self, _tags_Id, _game_id=None, _addictive=None, _adventure=None, _co_op=None, _comedy=None, _crime=None, _drama=None, _dystopian=None, _education=None, _emotional=None, _epic=None, _family_friendly=None, _farming=None, _fighting=None, _flight=None, _football=None, _funny=None, _gambling=None, _hacking=None, _horror=None, _indie=None, _magic=None, _mythology=None, _platformer=None, _rpg=None, _shooter=None,
+    def __init__(self, _tags_Id, _game_id=None, _addictive=None, _adventure=None, _co_op=None, _comedy=None, _crime=None, _drama=None, _dystopian_=None, _education=None, _emotional=None, _epic=None, _family_friendly=None, _farming=None, _fighting=None, _flight=None, _football=None, _funny=None, _gambling=None, _hacking=None, _horror=None, _indie=None, _magic=None, _mythology=None, _platformer=None, _rpg=None, _shooter=None,
                  ):
                  
         self.tags_Id = _tags_Id
@@ -112,7 +112,7 @@ class Game_Tags:
         self.comedy = _comedy
         self.crime = _crime
         self.drama = _drama
-        self.dystopian_ = _dystopian
+        self.dystopian_ = _dystopian_
         self.education = _education
         self.emotional = _emotional
         self.epic = _epic

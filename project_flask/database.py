@@ -211,3 +211,32 @@ class Database:
             query = "UPDATE Price_Info SET isFree={} AND freeveravail={} AND pricecurrency={} AND priceinitial={} AND pricefinal={} AND purchassesavail={} AND subscriptionavail={} WHERE game_id='{}'".format(isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail)
             cursor.execute(query)
             connection.commit()
+
+    def game_tags_create(self, tags):
+        cursor = self.conencion.cursor()
+        i=0
+        while(True):
+            query = "SELECT tags_Id FROM Game_Tags WHERE tags_Id = '{}'".format(i)
+            cursor.execute(query)
+            row = cursor.fetchone()
+            if row is None:
+                break
+            else:
+                i+=1
+            query = "INSERT INTO Game_Tags (tags_Id, game_id, addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, tags.addictive, tags.adventure, tags.co_op, tags.comedy, tags.crime, tags.drama, tags.dystopian_, tags.education, tags.emotional, tags.epic, tags.family_friendly, tags.arming, tags.fighting, tags.flight, tags.football, tags.funny, tags.gambling, tags.hacking, tags.horror, tags.indie, tags.magic, tags.mythology, tags.platformer, tags.rpg, tags.shooter)
+            cursor.execute(query)
+            return i
+
+    def game_tags_delete(self, tags_Id):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = self.connection.cursor()
+            query = "DELETE FROM Game_Tags WHERE tags_Id = '{}'".format(tags_Id)
+            cursor.execute(query)
+            connection.commit()
+
+    def game_tags_update(self, tags_Id, game_id, addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Game_Tags SET addictive={} AND adventure={} AND co_op={} AND comedy={} AND crime={} AND drama={} AND dystopian_={} AND education={} AND emotional={} AND epic={} AND family_friendly={} AND farming={} AND fighting={} AND flight={} AND football={} AND funny={} AND gambling={} AND hacking={} AND horror={} AND indie={} AND magic={} AND mythology={} AND platformer={} AND rpg={} AND shooter={} AND WHERE game_id='{}'".format(addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter)
+            cursor.execute(query)
+            connection.commit()

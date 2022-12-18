@@ -5,6 +5,7 @@ from games import Additional
 from games import Requirements
 from games import Genre
 from games import Price_Info
+from games import Game_Tags
 
 from flask import render_template, redirect, request, url_for, current_app
 
@@ -176,7 +177,7 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
 def price_create_page():
     if request.method == "GET":
         values = {"price_id": "", "game_id": "", "isFree": "", "freeveravail": "", "pricecurrency": "", "priceinitial": "", "pricefinal": "", "purchaseavail": "", "subscriptionavail": ""}
-        return render_template("price_edit.html", values = values)
+        return render_template("price_create.html", values = values)
     else:
         _price_id = request.form["price_id"]
         _game_id = request.form["game_id"]
@@ -215,3 +216,82 @@ def price_update_page(game_id):
         subscriptionavail = request.form.data["subscriptionavail"]
         db.price_info_update(price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail)
         return redirect(url_for("price_info_page", game_id=game_id))
+
+def tags_create_page():
+    if request.method == "GET":
+        values = {"tags_Id": "", "game_id": "", "addictive": "", "adventure": "", "co_op": "", "comedy": "", "crime": "", "drama": "", "dystopian_": "", "education": "", "emotional": "", "epic": "", "family_friendly": "", "farming": "", "fighting": "", "flight": "", "football": "", "funny": "", "gambling": "", "hacking": "", "horror": "", "indie": "", "magic": "", "mythology": "", "platformer": "", "rpg": "", "shooter": ""}
+        return render_template("tags_create.html", values = values)
+    else:
+        _tags_Id = request.form["tags_Id"]
+        _game_id = request.form["game_id"]
+        _addictive = request.form["addictive"]
+        _adventure = request.form["adventure"]
+        _co_op = request.form["co_op"]
+        _comedy = request.form["comedy"]
+        _crime = request.form["crime"]
+        _drama = request.form["drama"]
+        _dystopian_ = request.form["dystopian_"]
+        _education = request.form["education"]
+        _emotional = request.form["emotional"]
+        _epic = request.form["epic"]
+        _family_friendly = request.form["family_friendly"]
+        _farming = request.form["farming"]
+        _fighting = request.form["fighting"]
+        _flight = request.form["flight"]
+        _football = request.form["football"]
+        _funny = request.form["funny"]
+        _gambling = request.form["gambling"]
+        _hacking = request.form["hacking"]
+        _horror = request.form["horror"]
+        _indie = request.form["indie"]
+        _magic = request.form["magic"]
+        _mythology = request.form["mythology"]
+        _platformer = request.form["platformer"]
+        _rpg = request.form["rpg"]
+        _shooter = request.form["shooter"]
+        game_tags = Game_Tags(_tags_Id, _game_id, _addictive, _adventure, _co_op, _comedy, _crime, _drama, _dystopian_, _education, _emotional, _epic, _family_friendly, _farming, _fighting, _flight, _football, _funny, _gambling, _hacking, _horror, _indie, _magic, _mythology, _platformer, _rpg, _shooter)
+        db = Database(get_db())
+        tags_key = db.game_tags_create(game_tags)
+        return redirect(url_for("game_tags_page", tags_key=tags_key))
+
+def tags_delete_page(tags_Id):
+    db = Database(get_db())
+    db.game_tags_delete(tags_Id)
+    return redirect(url_for("home_page"))
+
+def tags_update_page(game_id):
+    db = Database(get_db())
+    tags = db.get_game_tags(game_id)
+    if request.method == "GET":
+        values = {"tags_Id": "", "game_id": "", "addictive": "", "adventure": "", "co_op": "", "comedy": "", "crime": "", "drama": "", "dystopian": "", "education": "", "emotional": "", "epic": "", "family_friendly": "", "farming": "", "fighting": "", "flight": "", "football": "", "funny": "", "gambling": "", "hacking": "", "horror": "", "indie": "", "magic": "", "mythology": "", "platformer": "", "rpg": "", "shooter": ""}
+        return render_template("tags_update.html", values=values, tags=tags)
+    else:
+        tags_Id = request.form["tags_Id"]
+        game_id = request.form["game_id"]
+        addictive = request.form.data["addictive"]
+        adventure = request.form.data["adventure"]
+        co_op = request.form.data["co_op"]
+        comedy = request.form.data["comedy"]
+        crime = request.form.data["crime"]
+        drama = request.form.data["drama"]
+        dystopian_ = request.form.data["dystopian_"]
+        education = request.form["education"]
+        emotional = request.form["emotional"]
+        epic = request.form.data["epic"]
+        family_friendly = request.form.data["family_friendly"]
+        farming = request.form.data["farming"]
+        fighting = request.form.data["fighting"]
+        flight = request.form.data["flight"]
+        football = request.form.data["football"]
+        funny = request.form.data["funny"]
+        gambling = request.form["gambling"]
+        hacking = request.form["hacking"]
+        horror = request.form.data["horror"]
+        indie = request.form.data["indie"]
+        magic = request.form.data["magic"]
+        mythology = request.form.data["mythology"]
+        platformer = request.form.data["platformer"]
+        rpg = request.form.data["rpg"]
+        shooter = request.form.data["shooter"]
+        db.game_tags_update(tags_Id, game_id, addictive, adventure, co_op, comedy, crime, drama, dystopian_, education, emotional, epic, family_friendly, farming, fighting, flight, football, funny, gambling, hacking, horror, indie, magic, mythology, platformer, rpg, shooter)
+        return redirect(url_for("game_tags_page", game_id=game_id))
