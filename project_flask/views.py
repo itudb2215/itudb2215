@@ -7,7 +7,7 @@ from games import Genre
 from games import Price_Info
 from games import Game_Tags
 
-from flask import render_template, redirect, request, url_for, current_app
+from flask import render_template, redirect, request, url_for
 
 def home_page():
     db = Database(get_db())
@@ -102,31 +102,36 @@ def requirements_add_page():
 
 def genre_add_page():
     if request.method == "GET":
-        values = {"genre_id":"","game_id": "", "GenreIsNonGame": "", "GenreIsIndie": "","GenreIsAction": "","GenreIsAdventure": "","GenreIsCasual": "","GenreIsStrategy": "","GenreIsRPG": "","GenreIsSimulation": "","GenreIsEarlyAccess": "","GenreIsFreeToPlay": "","GenreIsSports": "","GenreIsRacing": "","GenreIsMassivelyMultiplayer": ""}
+        values = { "GenreIsNonGame": "", "GenreIsIndie": "","GenreIsAction": "","GenreIsAdventure": "","GenreIsCasual": "","GenreIsStrategy": "","GenreIsRPG": "","GenreIsSimulation": "","GenreIsEarlyAccess": "","GenreIsFreeToPlay": "","GenreIsSports": "","GenreIsRacing": "","GenreIsMassivelyMultiplayer": ""}
         return render_template(
             "genre_edit.html", values=values
         )
     else:
-        _genre_id = request.form.data["genre_id"]
-        _game_id = request.form.data["game_id"]
-        _GenreIsNonGame = request.form.data["GenreIsNonGame"]
-        _GenreIsIndie = request.form.data["GenreIsIndie"]
-        _GenreIsAction = request.form.data["GenreIsAction"]
-        _GenreIsAdventure = request.form.data["GenreIsAdventure"]
-        _GenreIsCasual = request.form.data["GenreIsCasual"]
-        _GenreIsStrategy = request.form.data["GenreIsStrategy"]    
-        _GenreIsRPG = request.form.data["GenreIsRPG"]
-        _GenreIsSimulation = request.form.data["GenreIsSimulation"]    
-        _GenreIsEarlyAccess = request.form.data["GenreIsEarlyAccess"]
-        _GenreIsFreeToPlay = request.form.data["GenreIsFreeToPlay"]
-        _GenreIsSports = request.form.data["GenreIsSports"]    
-        _GenreIsRacing = request.form.data["GenreIsRacing"]
-        _GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
-        genre = Genre(_genre_id, _game_id, _GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
+
+        GenreIsNonGame = request.form["GenreIsNonGame"]
+        print(GenreIsNonGame)  
+        print("2")
+        GenreIsIndie = request.form["GenreIsIndie"]
+        GenreIsAction = request.form["GenreIsAction"]
+        GenreIsAdventure = request.form["GenreIsAdventure"]
+        GenreIsCasual = request.form["GenreIsCasual"]
+        GenreIsStrategy = request.form["GenreIsStrategy"]  
+        print(GenreIsStrategy)  
+        GenreIsRPG = request.form["GenreIsRPG"]
+        GenreIsSimulation = request.form["GenreIsSimulation"]    
+        GenreIsEarlyAccess = request.form["GenreIsEarlyAccess"]
+        GenreIsFreeToPlay = request.form["GenreIsFreeToPlay"]
+        GenreIsSports = request.form["GenreIsSports"]    
+        GenreIsRacing = request.form["GenreIsRacing"]
+        GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
+        print(GenreIsMassivelyMultiplayer)
+        genre = Genre(1,1,GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual, GenreIsStrategy, GenreIsRPG, GenreIsSimulation, GenreIsEarlyAccess, GenreIsFreeToPlay, GenreIsSports, GenreIsRacing, GenreIsMassivelyMultiplayer)
         #db = current_app.config["db"]
         db = Database(get_db())
+        print("nabeerihi")
         genre_key = db.add_genre(genre)
-        return redirect(url_for("games_page", genre_key=genre_key)) #TODO: genre_key değil game_id
+        print("nabeer")
+        return redirect(url_for("home_page")) #TODO: genre_key değil game_id
 
 def genre_delete_page(game_id):
         db = Database(get_db())

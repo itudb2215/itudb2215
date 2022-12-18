@@ -18,7 +18,7 @@ def create_app(debug=True):
     app.add_url_rule("/games/author/<steam_id>", view_func=views.author_page)
     app.add_url_rule("/new-info", view_func=views.info_add_page, methods=["GET", "POST"]) #TODO: change url
     app.add_url_rule("/new-reqirements", view_func=views.requirements_add_page, methods=["GET", "POST"]) #TODO: change url
-    app.add_url_rule("/new-genre", view_func=views.genre_add_page, methods=["GET", "POST"]) #TODO: change url
+    app.add_url_rule("/genre_edit", view_func=views.genre_add_page, methods=["GET", "POST"]) #TODO: change url
     app.add_url_rule("/delete-info/<game_id>", view_func=views.info_delete_page)
     app.add_url_rule("/delete-requirements/<game_id>", view_func=views.requirements_delete_page)
     app.add_url_rule("/delete-genre/<game_id>", view_func=views.genre_delete_page)

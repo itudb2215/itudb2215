@@ -141,17 +141,18 @@ class Database:
     def add_genre(self, genre): #TODO: game_id ?????????? 
         cursor = self.connection.cursor()
         i=0
-        while(True):
-                query = "SELECT genre_id FROM Genre WHERE genre_id = '{}'".format(i)
-                cursor.execute(query)
-                row = cursor.fetchone()
-                if row is None:
-                    break
-                else:
-                    i+=1
-                query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
-                cursor.execute(query)
-                return i
+        j=0
+        query = "SELECT MAX(genre_id) FROM Genre"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i = i+1
+        query = "SELECT MAX(game_id) FROM Genre"
+        cursor.execute(query)
+        j = cursor.fetchone()[0]
+        i = i+10
+        query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
+        cursor.execute(query)
+        return i
 
     def delete_genre(self, game_id):
         with dbapi2.connect(self.dbfile) as connection:
