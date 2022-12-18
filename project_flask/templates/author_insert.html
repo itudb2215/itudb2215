@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Add Author{% endblock %}
+{% block content %}
+    <h1 class="title">Add a new user!</h1>
+
+
+    <form method="POST" name="author_insert_page">
+
+      <div class="field">
+        <label for="title" class="label">How many games this user owns?</label>
+        <div class="control">
+          <input type="text" name="num_games_owned" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">How many reviews have been made by this user? </label>
+        <div class="control">
+          <input type="text" name="num_reviews" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Totatl playtime:</label>
+        <div class="control">
+          <input type="text" name="playtime_forever" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Playtime in last two weeks:</label>
+        <div class="control">
+          <input type="text" name="playtime_last_two_weeks" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Last Played:</label>
+        <div class="control">
+          <input type="text" name="last_played" class="input" />
+        </div>
+      </div>
+
+
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Save</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}

@@ -341,38 +341,35 @@ def game_insert_page():
         game = Game(1, query_name, release_year, required_age, metacritic, about_text, image_url)
         db = Database(get_db())
         game_id = db.add_game(game)
-        return redirect(url_for("home_page", game_id=game_id))
+        return redirect(url_for("game_insert_page", game_id=game_id))
     
     
 def review_insert_page():
     if request.method == "GET":
-        values = {"game_id": "", "language": "", "review": "", "timestamp_created": "", "votes_helpful": "", "votes_funny": "", "recommended": "", "author_steam_id": ""}
+        values = {"review_id": "", "game_id": "", "language": "", "review": "", "timestamp_created": ""}
         return render_template("review_insert.html", values = values)
     else:
+        review_id = request.form["review_id"]
         game_id = request.form["game_id"]
-        release_year = request.form["release_year"]
-        required_age = request.form["required_age"]
-        query_name = request.form["query_name"]
-        metacritic = request.form["metacritic"]
-        about_text = request.form["about_text"]
-        image_url = request.form["image_url"]
-        review = Review(1,game_id, release_year, required_age, query_name, metacritic, about_text, image_url)
+        language = request.form["language"]
+        review = request.form["review"]
+        timestamp_created = request.form["timestamp_created"]
+        review = Review(game_id, review_id, language, review, timestamp_created, 0, 0, 0)
         db = Database(get_db())
         review_id = db.add_review(review)
         return redirect(url_for("review_insert_page", review_id=review_id))
 
 def author_insert_page():
     if request.method == "GET":
-        values = {"steam_id": "", "num_games_owned": "", "num_reviews": "", "playtime_forever": "", "playtime_last_two_weeks": "", "last_played": ""}
+        values = { "num_games_owned": "", "num_reviews": "", "playtime_forever": "", "playtime_last_two_weeks": "", "last_played": ""}
         return render_template("author_insert.html", values = values)
     else:
-        steam_id = request.form["steam_id"]
         num_games_owned = request.form["num_games_owned"]
         num_reviews = request.form["num_reviews"]
         playtime_forever = request.form["playtime_forever"]
         playtime_last_two_weeks = request.form["playtime_last_two_weeks"]
         last_played = request.form["last_played"]
-        author = Author(steam_id, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played)
+        author = Author(1, num_games_owned, num_reviews, playtime_forever, playtime_last_two_weeks, last_played)
         db = Database(get_db())
         author_id = db.add_author(author)
         return redirect(url_for("author_insert_page", author_id=author_id))

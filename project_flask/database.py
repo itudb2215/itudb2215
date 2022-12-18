@@ -297,7 +297,7 @@ class Database:
     def add_review(self, review): # INSERT method for Reviews table
         cursor = self.connection.cursor()
         i=0
-        query = "SELECT MAX(game_id) FROM Main_Table"
+        query = "SELECT MAX(steam_id) FROM Author"
         cursor.execute(query)
         i = cursor.fetchone()[0]
         i = i+1
@@ -305,6 +305,6 @@ class Database:
         query = "INSERT INTO Author (steam_id) VALUES ('{}')".format(i)
         cursor.execute(query) 
         # game id should be valid for this operation
-        query = "INSERT INTO Reviews (review_id, game_id, language, review, timestamp_created, votes_helpful, votes_funny,recommended,author_steam_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, review.game_id, review.language, review.review, review.timestamp_created, review.votes_helpful, review.votes_funny, review.recommended, review.author_steam_id)
+        query = "INSERT INTO Reviews (review_id, game_id, language, review, timestamp_created, votes_helpful, votes_funny,recommended,author_steam_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(review.review_id, review.game_id, review.language, review.review, review.timestamp_created, 0, 0,0,i)
         cursor.execute(query)
         return i

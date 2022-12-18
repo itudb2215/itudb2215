@@ -84,6 +84,8 @@ class="bg-image d-flex justify-content-center align-items-center"
       <p  style="font-size: 15px"> Timestamp Created:{{ review.timestamp_created }}</p>
       <p style="font-size: 15px"> Votes Helpful: {{ review.votes_helpful }} Votes Funny: {{ review.votes_funny }}</p>
       <a href="/games/author/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
+      <a href="{{ url_for('review_insert_page') }}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page"> Add a new comment</a>
+
     </div>
     {% endfor %}
     </table>

@@ -12,6 +12,8 @@ def create_app(debug=True):
 
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/game_insert", view_func=views.game_insert_page, methods=["GET", "POST"])
+    app.add_url_rule("/games/author/author_insert", view_func=views.author_insert_page, methods=["GET", "POST"])
+    app.add_url_rule("/games/review_insert", view_func=views.review_insert_page, methods=["GET", "POST"])
     app.add_url_rule("/games/<game_id>", view_func=views.games_page,methods=["GET", "POST"])
     app.add_url_rule("/price_info/<game_id>", view_func=views.price_info_page)
     app.add_url_rule("/games/requirements/<game_id>", view_func=views.requirements_page)

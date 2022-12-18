@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Add Game{% endblock %}
+{% block content %}
+    <h1 class="title">Add a brand new game!</h1>
+
+
+    <form method="POST" name="game_insert_page">
+
+        <div class="field">
+            <label for="title" class="label">What is the review id of the game you want to comment?</label>
+            <div class="control">
+              <input type="text" name="review_id" class="input" />
+            </div>
+        </div>
+
+      <div class="field">
+        <label for="title" class="label">What is the game id of the game you want to comment?</label>
+        <div class="control">
+          <input type="text" name="game_id" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">In which language you are commenting?</label>
+        <div class="control">
+          <input type="text" name="language" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Your comment:</label>
+        <div class="control">
+          <input type="text" name="review" class="input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title" class="label">Timestamp:</label>
+        <div class="control">
+          <input type="text" name="timestamp_created" class="input" />
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Save</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}
