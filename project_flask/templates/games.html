@@ -53,16 +53,19 @@ class="bg-image d-flex justify-content-center align-items-center"
 
 <div class="field is-grouped">
   <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('info_delete_page', gameinfo_Id = adds.gameinfo_Id)}}"> Delete Additional Info</button>
+    <a class="button is-danger is-small" href="{{url_for('info_delete_page', gameinfo_Id = adds.gameinfo_Id)}}"> Delete Additional Info</a>
   </div>
 </div>
+
+
+
 {% endif %}
 
 
-<!--
+
   <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
-<a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
--->
+  <a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
+
 
 
 <div style="width: 50%; margin: auto">
@@ -88,7 +91,7 @@ class="bg-image d-flex justify-content-center align-items-center"
 </div>
 
 
-
+<!--
 <div class="accordion" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
@@ -194,6 +197,7 @@ class="bg-image d-flex justify-content-center align-items-center"
       </div>
     </div>
   </div>
-
+</div>
+-->
 
 {% endblock %}

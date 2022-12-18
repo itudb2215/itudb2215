@@ -3,8 +3,7 @@
 {% block content %}
 
 <div class="text-center">
-  <h1>Genre</h1>
-<h1>{{ selected_game.query_name}}</h1>
+  <h1>Genre of {{ selected_game.query_name}}</h1>
 
 <ul class="list-group list-group-flush" class="text-center">
   {% if genre.GenreIsNonGame == true %}
@@ -47,6 +46,12 @@
   <li class="list-group-item"><p style="font-size: 24px">Multiplayer</p> </li>
   {%endif%}
 </ul>
+
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('genre_delete_page', genre_Id = genre.genre_Id)}}"> Delete Genre</a>
+  </div>
+</div>
 
 <div class="btn-group" role="group" aria-label="Basic outlined example">
   <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
