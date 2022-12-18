@@ -171,3 +171,22 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
             #genre = Genre(_GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
             db.update_genre(genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             return redirect(url_for("games_page", game_id=game_id)) #TODO: genre_Id değil game_id
+
+def price_edit_page():
+    if request.method == "GET":
+        values = {"price_id": "", "game_id": "", "isFree": "", "freeveravail": "", "pricecurrency": "", "priceinitial": "", "pricefinal": "", "purchaseavail": "", "subscriptionavail": ""}
+        return render_template("price_edit.html", values = values)
+    else:
+        _price_id = request.form["price_id"]
+        _game_id = request.form["game_id"]
+        _isFree = request.form["isFree"]
+        _freeveravail = request.form["freeveravail"]
+        _pricecurrency = request.form["pricecurrency"]
+        _priceinitial = request.form["priceinitial"]
+        _pricefinal = request.form["pricefinal"]
+        _purchaseavail = request.form["purchaseavail"]
+        _subscriptionavail = request.form["subscriptionavail"]
+        info = Price_Info(_price_id, _game_id, _isFree, _freeveravail, _pricecurrency, _priceinitial, _pricefinal, _purchaseavail, _subscriptionavail)
+        db = Database(get_db())
+        price_key = db.price_info_create(price_info)
+        return redirect(url_for("price_info.html", price_key=price_key))

@@ -181,3 +181,18 @@ class Database:
             query = "UPDATE Genre SET GenreIsNonGame = {} AND GenreIsIndie = {} AND GenreIsAction = {} AND GenreIsAdventure = {} AND GenreIsCasual = {} AND GenreIsStrategy = {} AND GenreIsRPG = {} AND GenreIsSimulation = {} AND GenreIsEarlyAccess = {} AND GenreIsFreeToPlay = {} AND GenreIsSports = {} AND GenreIsRacing = {}  AND GenreIsMassivelyMultiplayer = {} WHERE  game_id = '{}'".format(GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             cursor.execute(query)
             connection.commit()
+
+    def price_info_create(self, price_info):
+        cursor = self.conencion.cursor()
+        i=0
+        while(True):
+            query = "SELECT price_Id FROM Price_Info WHERE price_Id = '{}'".format(i)
+            cursor.execute(query)
+            row = cursor.fetchone()
+            if row is None:
+                break
+            else:
+                i+=1
+            query = "INSERT INTO Price_Info (price_id, game_id, isFree, freeveravail, pricecurrency, priceinitial, pricefinal, purchaseavail, subscriptionavail) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, price_info.isFree, price_info.freeveravail, price_info.pricecurrency, price_info.priceinitial, price_info.pricefinal, price_info.purchaseavail, price_info.subscriptionavail)
+            cursor.execute(query)
+            return i

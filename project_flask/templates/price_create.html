@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block title %}Author Profile{% endblock %}
+{% block content %}
+
+<h1>Edit Game: {{selected_game.game_id}} 's Price Information</h1>
+
+<form action="" method="post" name="price_edit_form">
+    <div>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-row-label col-sm-2 pt-0">Is the game free?</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isFree" id="isFreeTrue" checked>
+                        <label class="form-check-label" for="isFreeTrue">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isFree" id="isFreeFalse" checked>
+                        <label class="form-check-label" for="isFreeFalse">No</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-row-label col-sm-2 pt-0">Is there an available free version of the game?</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isfreeavail" id="isfreeavailTrue" checked>
+                        <label class="form-check-label" for="isfreeavailTrue">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isfreeavail" id="isfreeavailFalse" checked>
+                        <label class="form-check-label" for="isfreeavailFalse">No</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group row">
+            <label for="pricecurrency" class="col-sm-2 col-form-label">Currency: </label>
+            <div class="col-sm-10">
+                <input type="text" id="pricecurrency" placeholder="Currency">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="priceinitial" class="col-sm-2 col-form-label">Initial Price: </label>
+            <div class="col-sm-10">
+                <input type="number" step="0.01" id="priceinitial" placeholder="0.00">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="pricefinal" class="col-sm-2 col-form-label">Final Price: </label>
+            <div class="col-sm-10">
+                <input type="number" step="0.01" id="pricefinal" placeholder="0.00">
+            </div>
+        </div>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-row-label col-sm-2 pt-0">Is purchasing available?</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="purchaseavail" id="purchaseavailTrue" checked>
+                        <label class="form-check-label" for="purchaseavailTrue">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="purchaseavail" id="purchaseavailFalse" checked>
+                        <label class="form-check-label" for="purchaseavailFalse">No</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-row-label col-sm-2 pt-0">Is subscription available?</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="subscriptionavail" id="subscriptionavailTrue" checked>
+                        <label class="form-check-label" for="subscriptionavailTrue">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="subscriptionavail" id="subscriptionavailFalse" checked>
+                        <label class="form-check-label" for="subscriptionavailFalse">No</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Add Pricing</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+{% endblock %}
