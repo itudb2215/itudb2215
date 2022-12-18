@@ -51,11 +51,6 @@ class="bg-image d-flex justify-content-center align-items-center"
   {%endif%}
 </div>
 
-<div class="field is-grouped">
-  <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('info_delete_page', gameinfo_Id = adds.gameinfo_Id)}}"> Delete Additional Info</button>
-  </div>
-</div>
 {% endif %}
 
 
@@ -80,7 +75,7 @@ class="bg-image d-flex justify-content-center align-items-center"
       <p style="font-size: 15px">{{ review.language }}</p>
       <p  style="font-size: 15px"> Timestamp Created:{{ review.timestamp_created }}</p>
       <p style="font-size: 15px"> Votes Helpful: {{ review.votes_helpful }} Votes Funny: {{ review.votes_funny }}</p>
-      <a href="/author/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
+      <a href="/games/author/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
     </div>
     {% endfor %}
     </table>

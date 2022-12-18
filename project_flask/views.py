@@ -50,9 +50,9 @@ def requirements_page(game_id):
     requirements =  db.get_requirements(game_id)
     return render_template("requirements.html", selected_game=game, requirements=requirements)
 
-def author_page(author_id):
+def author_page(steam_id):
     db = Database(get_db())
-    author = db.get_author(author_id)
+    author = db.get_author(steam_id)
     return render_template("author.html", author=author)
 
 def info_add_page():
