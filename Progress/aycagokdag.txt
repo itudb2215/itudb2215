@@ -8,9 +8,17 @@ WEEK 10 (Nov 28 - Dec 4):
 - The database is created using PostgreSQL.
 - Database connection is added to Flask page.
 
-WEEK 10 (Dec 5 - Dec 11):
+WEEK 11 (Dec 5 - Dec 11):
 - Flask pages that create database connections are modified and finalized.
 - In order not to write repeated code a base template layout.html is added to frontend.
 - SQL queries are written into database.py to get information from database.
+- Get view functions created to request a cursor from database and these are got connected with the pages.
 
+WEEK 11 (Dec 12 - Dec 18):
+- New database queries are modified and for listing of games in home page.
+- In the home page, all games and their properties are listed.
+- Page connections modified in and finalized in server.py page.
+- Class that stores review values is created and getter method from database implemented for Reviews page.
+- Class that stores author values is created and getter method from database implemented for Author page.
+- Templates arranged according to display purposes.
 

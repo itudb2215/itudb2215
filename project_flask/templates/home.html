@@ -18,9 +18,10 @@
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
       <p>#{{ loop.index }}</p>
-      
       <p style="font-size: 24px">{{ game.query_name }}</p>
-      <p style="font-size: 24px">{{ game.game_id }}</p>
+      <p style="font-size: 16px">{{ game.release_date }}</p>
+      <p style="font-size: 16px">Required Age: {{ game.required_age }} Metacritic: {{ game.metacritic }}</p>
+      <p style="font-size: 13px">{{ game.about_text }}</p>
       <a href="/games/{{game.game_id}}" class="btn btn-info" role="button">Go to details</a>
     </div>
     {% endfor %}

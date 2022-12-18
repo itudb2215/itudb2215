@@ -31,8 +31,7 @@ def games_page(game_id):
         genre = db.get_genre(game_id)
         reviews = db.get_reviews(game_id)
         requirements =  db.get_requirements(game_id)
-        game_tags = db.get_game_tags(game_id)
-        return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews, game_tags=game_tags)
+        return render_template("games.html", selected_game=game, additional=additional, adds=adds, genre=genre, requirements=requirements, reviews=reviews)
     else:
         db.delete_info(int(gameinfo_Id))
         return redirect(url_for("home_page")) 

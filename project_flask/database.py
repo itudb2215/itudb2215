@@ -34,10 +34,10 @@ class Database:
         games = []
         
         cursor = self.connection.cursor()
-        query = "SELECT game_id, query_name, release_date FROM Main_Table LIMIT 1000"
+        query = "SELECT game_id, query_name, release_date, required_age, metacritic, about_text FROM Main_Table LIMIT 1000"
         cursor.execute(query)
-        for game_id, query_name, release_year in cursor:
-            games.append(Game(game_id, query_name, release_year))
+        for game_id, query_name, release_date, required_age, metacritic, about_text in cursor:
+            games.append(Game(game_id, query_name, release_date, required_age, metacritic, about_text))
         return games
 
     def get_additional(self):
@@ -78,10 +78,10 @@ class Database:
         reviews = []
         
         cursor = self.connection.cursor()
-        query = "SELECT review_id, language, review, timestamp_created, author_steam_id, recommended FROM Reviews WHERE (language = 'turkish' AND game_id = %s) LIMIT 100"
+        query = "SELECT game_id, review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id FROM Reviews LIMIT 20"
         cursor.execute(query, (game_id,))
-        for review_id, language, review, timestamp_created, author_steam_id, recommended in cursor:
-            reviews.append((Review(review_id, language, review, timestamp_created, author_steam_id, recommended)))
+        for game_id, review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id in cursor:
+            reviews.append((Review(game_id,review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id)))
         return reviews
     
     def get_author(self, steam_id):

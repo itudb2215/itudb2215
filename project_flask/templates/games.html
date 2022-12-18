@@ -1,7 +1,4 @@
 
-{% block title %}Home{% endblock %}
-{% block content %}
-
 <!doctype html>
 <html>
     <head>
@@ -11,8 +8,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
     </head>
-<body>
 {%include 'navbar.html'%}
+
+{% block content %}
 <!-- TODO: Deal if Background image does not exists (example game: naruto)-->
 {% if adds.background != "" %}
 <div
@@ -78,18 +76,18 @@ class="bg-image d-flex justify-content-center align-items-center"
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
       <p>#{{ loop.index }}</p>
-      
-      <p style="font-size: 24px">{{ reviews.review }}</p>
-      <p style="font-size: 24px">{{ reviews.author_steam_id }}</p>
-      <p style="font-size: 24px">{{ reviews.timestamp_created }}</p>
-      <p style="font-size: 24px">{{ reviews.votes_helpful }}</p>
-      <p style="font-size: 24px">{{ reviews.votes_funny }}</p>
-      <a href="/author_page/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
+      <p style="font-size: 16px">{{ review.review }}</p>
+      <p style="font-size: 15px">{{ review.language }}</p>
+      <p  style="font-size: 15px"> Timestamp Created:{{ review.timestamp_created }}</p>
+      <p style="font-size: 15px"> Votes Helpful: {{ review.votes_helpful }} Votes Funny: {{ review.votes_funny }}</p>
+      <a href="/author/{{review.author_steam_id}}" class="btn btn-info" role="button">Go to author</a>
     </div>
     {% endfor %}
     </table>
   {% endif %}
 </div>
+
+
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
@@ -98,6 +96,7 @@ class="bg-image d-flex justify-content-center align-items-center"
         Genre
       </button>
     </h2>
+    {% if genre %}
     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
       <div class="accordion-body">
           {% if genre.GenreIsNonGame == true %}
@@ -140,11 +139,16 @@ class="bg-image d-flex justify-content-center align-items-center"
           <p style="font-size: 24px">Multiplayer</p>
           {%endif%}
 
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+        </div>
       </div>
+   
     </div>
+    {% endif %}
   </div>
-
-
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
       <button class="accordion-button collapsed btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
@@ -173,7 +177,7 @@ class="bg-image d-flex justify-content-center align-items-center"
             </div>
           </div>
         </ul>
-        
+
           <h3>Requirements:</h3>
           <div class="grid text-center" style="--bs-columns: 3;">
             <div>PC requirements:</div><p style="font-size: 20px">{{ requirements.pcminreqtext}}</p>
@@ -181,31 +185,15 @@ class="bg-image d-flex justify-content-center align-items-center"
             <div>Mac requirements:</div><p style="font-size: 20px">{{ requirements.macminreqtext}}</p>
           </div>
 
+
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
+        </div>
       </div>
     </div>
   </div>
 
 
 {% endblock %}
-</div>
-
-<div class="field is-grouped">
-  <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('genre_delete_page', genre_Id = genre.genre_Id)}}"> Delete Genre</button>
-  </div>
-</div>
-
-<div class="field is-grouped">
-  <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('update_genre_page', game_id = adds.game_id)}}"> Update Genre</button>
-  </div>
-</div>
-
-<div class="field is-grouped">
-  <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('requirements_delete_page', platform_Id = requirements.platform_Id)}}"> Delete Requirements</button>
-  </div>
-</div>
-
-</body>
-
