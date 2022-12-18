@@ -13,28 +13,20 @@ class Database:
     def __init__(self, dbfile):
         self.connection = dbfile
         
-
-    """
-    get_name function returns the game object belonging to selected id.
-    
-    """
-
     def get_game(self, game_id):
        
         cursor = self.connection.cursor()
         query = "SELECT game_id, response_id, query_name, release_date, required_age, metacritic, about_text FROM Main_Table WHERE (game_id = %s)"
         cursor.execute(query, (game_id,))
         results = cursor.fetchall()[0]
-        #print(results)
         game_ = Game(results[0], results[2])
         return game_
-
 
     def get_games(self):
         games = []
         
         cursor = self.connection.cursor()
-        query = "SELECT game_id, query_name, release_date, required_age, metacritic, about_text FROM Main_Table LIMIT 1000"
+        query = "SELECT game_id, query_name, release_date, required_age, metacritic, about_text FROM Main_Table LIMIT 50"
         cursor.execute(query)
         for game_id, query_name, release_date, required_age, metacritic, about_text in cursor:
             games.append(Game(game_id, query_name, release_date, required_age, metacritic, about_text))
@@ -42,7 +34,6 @@ class Database:
 
     def get_additional(self):
         additional = []
-        
         cursor = self.connection.cursor()
         query = "SELECT game_id, background, headerimage FROM Additional_game_info "
         cursor.execute(query)
@@ -78,7 +69,7 @@ class Database:
         reviews = []
         
         cursor = self.connection.cursor()
-        query = "SELECT game_id, review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id FROM Reviews LIMIT 20"
+        query = "SELECT game_id, review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id FROM Reviews WHERE (game_id = %s)LIMIT 20"
         cursor.execute(query, (game_id,))
         for game_id, review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id in cursor:
             reviews.append((Review(game_id,review_id, language, review, timestamp_created, votes_helpful, votes_funny, author_steam_id)))

@@ -1,4 +1,4 @@
-from flask import current_app, g
+from flask import g
 import psycopg2
 
 def connect_to_database():
@@ -11,9 +11,13 @@ def get_db():
     
     return g.db
 
-#@current_app.teardown_appcontext
 def teardown_db(exception):
     db = g.pop('db', None)
 
     if db is not None:
         db.close()
+        
+        
+        
+        
+        
