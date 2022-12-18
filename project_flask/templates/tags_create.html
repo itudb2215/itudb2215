@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+{% block title %}Edit Game Tags{% endblock %}
+{% block content %}
+
+<h1>Edit Game:{{selected_game.game_id}}'s Tags</h1>
+<h2>Please check related tags with the game</h2>
+
+<form action="" method="post" name="tags_edit_form">
+    <div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">Game Tags:</div>
+            <div class="col-sm-10">
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="addictive">
+                    <label class="form-check-label" for="addictive">Addictive</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="adventure">
+                    <label class="form-check-label" for="adventure">Adventure</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="co_op">
+                    <label class="form-check-label" for="co_op">Cooperation</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="comedy">
+                    <label class="form-check-label" for="comedy">Comedy</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="crime">
+                    <label class="form-check-label" for="crime">Crime</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="drama">
+                    <label class="form-check-label" for="drama">Drama</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="dystopian_">
+                    <label class="form-check-label" for="dystopian_">Dystopian</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="education">
+                    <label class="form-check-label" for="education">Education</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="emotional">
+                    <label class="form-check-label" for="emotional">Emotional</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="epic">
+                    <label class="form-check-label" for="epic">Epic</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="family_friendly">
+                    <label class="form-check-label" for="family_friendly">Family Friendly</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="farming">
+                    <label class="form-check-label" for="farming">Farming</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="fighting">
+                    <label class="form-check-label" for="fighting">Fighting</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="flight">
+                    <label class="form-check-label" for="flight">Flight</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="football">
+                    <label class="form-check-label" for="football">Football</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="funny">
+                    <label class="form-check-label" for="funny">Funny</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gambling">
+                    <label class="form-check-label" for="gambling">Gambling</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="hacking">
+                    <label class="form-check-label" for="hacking">Hacking</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="horror">
+                    <label class="form-check-label" for="horror">Horror</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="indie">
+                    <label class="form-check-label" for="indie">Indie</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="magic">
+                    <label class="form-check-label" for="magic">Magic</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mythology">
+                    <label class="form-check-label" for="mythology">Mythology</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="platformer">
+                    <label class="form-check-label" for="platformer">Platformer</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rpg">
+                    <label class="form-check-label" for="rpg">RPG</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="shooter">
+                    <label class="form-check-label" for="shooter">Shooter</label>
+                </div>
+            </div>
+
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <button type="submit" class="btn btn-primary">Add Tags</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+{% endblock %}

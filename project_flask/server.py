@@ -26,6 +26,9 @@ def create_app(debug=True):
     app.add_url_rule("/price_info_delete/<price_Id>", view_func=views.price_delete_page)
     app.add_url_rule("/price_info_create/<price_Id>", view_func=views.price_create_page, methods=["GET", "POST"])
     app.add_url_rule("/price_info_update/<game_id>", view_func=views.price_update_page)
+    app.add_url_rule("/game_tags_delete/<tags_Id>", view_func=views.tags_delete_page)
+    app.add_url_rule("/game_tags_create/<tags_Id>", view_func=views.tags_create_page, methods=["GET", "POST"])
+    app.add_url_rule("/game_tags_update/<game_id>", view_func=views.tags_update_page)
 
   
     
