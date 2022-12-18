@@ -57,47 +57,42 @@ def author_page(steam_id):
 
 def info_add_page():
     if request.method == "GET":
-        values = {"gameinfo_id":"","game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
+        values = {"background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
         return render_template(
             "info_edit.html", values=values
         )
     else:
-        _gameinfo_id = request.form.data["gameinfo_id"]
-        _game_id = request.form.data["game_id"]
-        _background = request.form.data["background"]
-        _headerimage = request.form.data["headerimage"]
-        _supporturl = request.form.data["supporturl"]
-        _website = request.form.data["website"]    
-        _recomendationcount = request.form.data["recomendationcount"]
-        _steamspyowners = request.form.data["steamspyowners"]
-        _steamspyplayersestimate = request.form.data["steamspyplayersestimate"]        
-        info = Additional(_gameinfo_id, _game_id, _background, _headerimage, _supporturl, _website, _recomendationcount, _steamspyowners, steamspyplayersestimate = int(_steamspyplayersestimate) if _steamspyplayersestimate else None)
+        background = request.form["background"]
+        headerimage = request.form["headerimage"]
+        supporturl = request.form["supporturl"]
+        website = request.form["website"]    
+        recomendationcount = request.form["recomendationcount"]
+        steamspyowners = request.form["steamspyowners"]
+        steamspyplayersestimate = request.form["steamspyplayersestimate"]        
+        info = Additional(1,1,background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
         #db = current_app.config["db"]
         db = Database(get_db())
         info_key = db.add_info(info)
-        return redirect(url_for("games_page", info_key=info_key))
+        return redirect(url_for("home_page"))
 
 def requirements_add_page():
     if request.method == "GET":
-        values = {"platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+        values = {"platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
         return render_template(
             "requirements_edit.html", values=values
         )
     else:
-        _platform_id = request.form.data["platform_id"]
-        _game_id = request.form.data["game_id"]
-        _response_id = request.form.data["response_id"]
-        _platformwindows = request.form.data["platformwindows"]
-        _platformlinux = request.form.data["platformlinux"]
-        _platformmac = request.form.data["platformmac"]
-        _pcminreqtext = request.form.data["pcminreqtext"]    
-        _linuxminreqtext = request.form.data["linuxminreqtext"]
-        _macminreqtext = request.form.data["macminreqtext"]    
-        requirements = Requirements(_platform_id, _game_id, _response_id, _platformwindows, _platformlinux, _platformmac, _pcminreqtext, _linuxminreqtext, _macminreqtext)
+        platformwindows = request.form["platformwindows"]
+        platformlinux = request.form["platformlinux"]
+        platformmac = request.form["platformmac"]
+        pcminreqtext = request.form["pcminreqtext"]    
+        linuxminreqtext = request.form["linuxminreqtext"]
+        macminreqtext = request.form["macminreqtext"]    
+        requirements = Requirements(1,1,1, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
         #db = current_app.config["db"]
         db = Database(get_db())
         requirements_key = db.add_reqirements(requirements)
-        return redirect(url_for("games_page", requirements_key=requirements_key))
+        return redirect(url_for("home_page"))
 
 
 def genre_add_page():
@@ -174,7 +169,7 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
 
 def update_info_page(game_id): #genre_Id mi game_id mi????
         db = Database(get_db())
-        info = db.get_additional() #get_additional(game_id) ?????????
+        info = db.get_additional() #get_additional(game_id)
         if request.method == "GET":
             values = {"gameinfo_id":"","game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
             return render_template(

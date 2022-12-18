@@ -111,32 +111,38 @@ class Database:
     def add_info(self, info): #TODO: game_id ?????????? 
         cursor = self.connection.cursor()
         i=0
-        while(True):
-                query = "SELECT gameinfo_id FROM Additional_game_info WHERE gameinfo_id = '{}'".format(i)
-                cursor.execute(query)
-                row = cursor.fetchone()
-                if row is None:
-                    break
-                else:
-                    i+=1
-                query = "INSERT INTO Additional_game_info (gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES ('{}','{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, info.background, info.headerimage, info.supporturl, info.website, info.recomendationcount,info.steamspyowners,info.steamspyplayersestimate)
-                cursor.execute(query)
-                return i
+        j=0
+        query = "SELECT MAX(gameinfo_id) FROM Additional_game_info"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i+=1
+        query = "SELECT MAX(game_id) FROM Additional_game_info"
+        cursor.execute(query)
+        j = cursor.fetchone()[0]
+        j = j+10
+        query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
+        cursor.execute(query)
+        query = "INSERT INTO Additional_game_info (gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount,steamspyowners,steamspyplayersestimate) VALUES ('{}','{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, info.background, info.headerimage, info.supporturl, info.website, info.recomendationcount,info.steamspyowners,info.steamspyplayersestimate)
+        cursor.execute(query)
+        return i
 
     def add_reqirements(self, requirements): #TODO: game_id ?????????? response_id????????????
         cursor = self.connection.cursor()
         i=0
-        while(True):
-                query = "SELECT platform_id FROM Platform_Requirements WHERE platform_id = '{}'".format(i)
-                cursor.execute(query)
-                row = cursor.fetchone()
-                if row is None:
-                    break
-                else:
-                    i+=1
-                query = "INSERT INTO Platform_Requirements (platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, i, i, requirements.platformwindows, requirements.platformlinux, requirements.platformmac, requirements.pcminreqtext, requirements.linuxminreqtext, requirements.macminreqtext)
-                cursor.execute(query)
-                return i
+        j=0
+        query = "SELECT MAX(platform_id) FROM Platform_Requirements"
+        cursor.execute(query)
+        i = cursor.fetchone()[0]
+        i+=1
+        query = "SELECT MAX(game_id) FROM Platform_Requirements"
+        cursor.execute(query)
+        j = cursor.fetchone()[0]
+        j = j+10
+        query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
+        cursor.execute(query)
+        query = "INSERT INTO Platform_Requirements (platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext,linuxminreqtext,macminreqtext) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, j, requirements.platformwindows, requirements.platformlinux, requirements.platformmac, requirements.pcminreqtext, requirements.linuxminreqtext, requirements.macminreqtext)
+        cursor.execute(query)
+        return i
 
     def add_genre(self, genre): #TODO: game_id ?????????? 
         cursor = self.connection.cursor()
@@ -149,8 +155,8 @@ class Database:
         query = "SELECT MAX(game_id) FROM Genre"
         cursor.execute(query)
         j = cursor.fetchone()[0]
-        j = j+1657
-        query = "INSERT INTO Main_table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
+        j = j+10
+        query = "INSERT INTO Main_Table (game_id,response_id ) VALUES ('{}', '{}')".format(j,j)
         cursor.execute(query)
         query = "INSERT INTO Genre (genre_id, game_id, GenreIsNonGame, GenreIsIndie, GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(i, j, genre.GenreIsNonGame, genre.GenreIsIndie, genre.GenreIsAction, genre.GenreIsAdventure, genre.GenreIsCasual, genre.GenreIsStrategy,genre.GenreIsRPG,genre.GenreIsSimulation,genre.GenreIsEarlyAccess,genre.GenreIsFreeToPlay,genre.GenreIsSports,genre.GenreIsRacing,genre.GenreIsMassivelyMultiplayer)
         cursor.execute(query)

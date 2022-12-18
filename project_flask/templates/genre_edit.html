@@ -7,120 +7,83 @@
     <form method="POST" name="genre_add_page">
 
         <!--TODO: deal with game_id-->
-      <div class="field">
-        <label for="title" class="label">Non Game</label>
-        <div class="control">
-          <input type="radio" name="GenreIsNonGame" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsNonGame" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsNonGame">Non Game:</label>
+        <select name="GenreIsNonGame" id="GenreIsNonGame">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Indie</label>
-        <div class="control">
-          <input type="radio" name="GenreIsIndie" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsIndie" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsIndie">Indie:</label>
+        <select name="GenreIsIndie" id="GenreIsIndie">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Action</label>
-        <div class="control">
-          <input type="radio" name="GenreIsAction" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsAction" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsAction">Action:</label>
+        <select name="GenreIsAction" id="GenreIsAction">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Adventure</label>
-        <div class="control">
-          <input type="radio" name="GenreIsAdventure" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsAdventure" value="False" />No<br>
-        </div>
-        </div>
-      </div>
+        <label for="GenreIsAdventure">Adventure:</label>
+        <select name="GenreIsAdventure" id="GenreIsAdventure">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Casual</label>
-        <div class="control">
-          <input type="radio" name="GenreIsCasual" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsCasual" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsCasual">Casual:</label>
+        <select name="GenreIsCasual" id="GenreIsCasual">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Strategy</label>
-        <div class="control">
-          <input type="radio" name="GenreIsStrategy" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsStrategy" value="False" />No<br>
+        <label for="GenreIsStrategy">Strategy:</label>
+        <select name="GenreIsStrategy" id="GenreIsStrategy">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-        </div>
-      </div>
+        <label for="GenreIsRPG">RPG:</label>
+        <select name="GenreIsRPG" id="GenreIsRPG">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">RPG</label>
-        <div class="control">
-          <input type="radio" name="GenreIsRPG" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsRPG" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsSimulation">Simulation:</label>
+        <select name="GenreIsSimulation" id="GenreIsSimulation">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Simulation</label>
-        <div class="control">
-          <input type="radio" name="GenreIsSimulation" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsSimulation" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsEarlyAccess">Early Access:</label>
+        <select name="GenreIsEarlyAccess" id="GenreIsEarlyAccess">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Early Access</label>
-        <div class="control">
-          <input type="radio" name="GenreIsEarlyAccess" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsEarlyAccess" value="False" />No<br>
-        </div>
-      </div>
+        <label for="GenreIsFreeToPlay">Free:</label>
+        <select name="GenreIsFreeToPlay" id="GenreIsFreeToPlay">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-      <div class="field">
-        <label for="title" class="label">Free</label>
-        <div class="control">
-          <input type="radio" name="GenreIsFreeToPlay" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsFreeToPlay" value="False" />No<br>
+        <label for="GenreIsSports">Sports:</label>
+        <select name="GenreIsSports" id="GenreIsSports">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-        </div>
-      </div>
+        <label for="GenreIsRacing">Racing:</label>
+        <select name="GenreIsRacing" id="GenreIsRacing">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
 
-
-      <div class="field">
-        <label for="title" class="label">Sports</label>
-        <div class="control">
-          <input type="radio" name="GenreIsSports" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsSports"  value="False" />No<br>
-
-
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="title" class="label">Racing</label>
-        <div class="control">
-          <input type="radio" name="GenreIsRacing" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsRacing"  value="False" />No<br>
-
-
-        </div>
-      </div>
-
-
-      <div class="field">
-        <label for="title" class="label">Multiplayer</label>
-        <div class="control">
-          <input type="radio" name="GenreIsMassivelyMultiplayer" value="True" /> Yes<br>
-          <input type="radio" name="GenreIsMassivelyMultiplayer" value="False" />No<br>
-
-
-        </div>
-      </div>
+        <label for="GenreIsMassivelyMultiplayer">Multiplayer:</label>
+        <select name="GenreIsMassivelyMultiplayer" id="GenreIsMassivelyMultiplayer">
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </select>
      
 
       <div class="field is-grouped">
