@@ -22,6 +22,7 @@ def create_app(debug=True):
     app.add_url_rule("/delete-info/<gameinfo_Id>", view_func=views.info_delete_page)
     app.add_url_rule("/delete-requirements/<platform_Id>", view_func=views.requirements_delete_page)
     app.add_url_rule("/delete-genre/<genre_Id>", view_func=views.genre_delete_page)
+    app.add_url_rule("/update-genre/<game_id>", view_func=views.update_genre_page)
 
   
     

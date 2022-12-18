@@ -61,16 +61,10 @@ class="bg-image d-flex justify-content-center align-items-center"
 {% endif %}
 
 
-<a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
+<!--
+  <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
 <a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
-
-
-
-<div class="btn-group" role="group" aria-label="Basic outlined example">
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-  <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-</div>
+-->
 
 
 <div style="width: 50%; margin: auto">
@@ -145,16 +139,12 @@ class="bg-image d-flex justify-content-center align-items-center"
           {% if genre.GenreIsMassivelyMultiplayer == true %}
           <p style="font-size: 24px">Multiplayer</p>
           {%endif%}
-        
-          
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-        </div>
+
       </div>
     </div>
   </div>
+
+
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
       <button class="accordion-button collapsed btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
@@ -190,13 +180,7 @@ class="bg-image d-flex justify-content-center align-items-center"
             <div>Linux requirements:</div><p style="font-size: 20px">{{ requirements.linuxminreqtext}}</p>
             <div>Mac requirements:</div><p style="font-size: 20px">{{ requirements.macminreqtext}}</p>
           </div>
-  
-        
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -204,6 +188,24 @@ class="bg-image d-flex justify-content-center align-items-center"
 
 {% endblock %}
 </div>
+
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('genre_delete_page', genre_Id = genre.genre_Id)}}"> Delete Genre</button>
+  </div>
+</div>
+
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('update_genre_page', game_id = adds.game_id)}}"> Update Genre</button>
+  </div>
+</div>
+
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('requirements_delete_page', platform_Id = requirements.platform_Id)}}"> Delete Requirements</button>
+  </div>
+</div>
+
 </body>
 
- 

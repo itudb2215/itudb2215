@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block title %}Update Genre{% endblock %}
+{% block content %}
+    <h1 class="title  has-text-info-dark">Update Genre</h1>  <!--Add game name info-->
+
+    <form action="" method="post" name="update_genre_page">
+
+        <div class="field">
+            <label for="title" class="label">Non Game</label>
+            <div class="control">
+              <input type="radio" name="GenreIsNonGame" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Indie</label>
+            <div class="control">
+              <input type="radio" name="GenreIsIndie" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Action</label>
+            <div class="control">
+              <input type="radio" name="GenreIsAction" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Adventure</label>
+            <div class="control">
+              <input type="radio" name="GenreIsAdventure" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Casual</label>
+            <div class="control">
+              <input type="radio" name="GenreIsCasual" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Strategy</label>
+            <div class="control">
+              <input type="radio" name="GenreIsStrategy" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">RPG</label>
+            <div class="control">
+              <input type="radio" name="GenreIsRPG" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Simulation</label>
+            <div class="control">
+              <input type="radio" name="GenreIsSimulation" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Early Access</label>
+            <div class="control">
+              <input type="radio" name="GenreIsEarlyAccess" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Free</label>
+            <div class="control">
+              <input type="radio" name="GenreIsFreeToPlay" class="input" />
+            </div>
+          </div>
+    
+    
+          <div class="field">
+            <label for="title" class="label">Sports</label>
+            <div class="control">
+              <input type="radio" name="GenreIsSports" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Racing</label>
+            <div class="control">
+              <input type="radio" name="GenreIsRacing" class="input" />
+            </div>
+          </div>
+    
+    
+          <div class="field">
+            <label for="title" class="label">Multiplayer</label>
+            <div class="control">
+              <input type="radio" name="GenreIsMassivelyMultiplayer" class="input" />
+            </div>
+          </div>
+          
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-medium">Update</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}

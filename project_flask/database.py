@@ -172,3 +172,12 @@ class Database:
             query = "DELETE FROM Platform_Requirements WHERE platform_id = '{}'".format(platform_id)
             cursor.execute(query)
             connection.commit()
+
+
+
+    def update_genre(self, genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Genre SET GenreIsNonGame = {} AND GenreIsIndie = {} AND GenreIsAction = {} AND GenreIsAdventure = {} AND GenreIsCasual = {} AND GenreIsStrategy = {} AND GenreIsRPG = {} AND GenreIsSimulation = {} AND GenreIsEarlyAccess = {} AND GenreIsFreeToPlay = {} AND GenreIsSports = {} AND GenreIsRacing = {}  AND GenreIsMassivelyMultiplayer = {} WHERE  game_id = '{}'".format(GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
+            cursor.execute(query)
+            connection.commit()
