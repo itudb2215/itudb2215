@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Update Requirements{% endblock %}
+{% block content %}
+    <h1 class="title  has-text-info-dark">Update Requirements</h1>  <!--Add game name info-->
+
+    <form action="" method="post" name="update_reqirements_page">
+        <div class="field">
+            <label for="title" class="label">Windows</label>
+            <div class="control">
+              <input type="checkbox" name="platformwindows" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Linux</label>
+            <div class="control">
+              <input type="checkbox" name="platformlinux" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="year" class="label">Mac</label>
+            <div class="control">
+              <input type="checkbox" name="platformmac" class="input"/>
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">PC minimum requirements</label>
+            <div class="control">
+              <input type="text" name="pcminreqtext" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Linux minimum requirements</label>
+            <div class="control">
+              <input type="text" name="linuxminreqtext" class="input" />
+            </div>
+          </div>
+    
+          <div class="field">
+            <label for="title" class="label">Mac minimum requirements</label>
+            <div class="control">
+              <input type="text" name="macminreqtext" class="input" />
+            </div>
+          </div>
+    
+    
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-primary is-small">Save</button>
+            </div>
+          </div>
+    </form>
+{% endblock %}

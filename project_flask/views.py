@@ -79,7 +79,7 @@ def info_add_page():
 
 def requirements_add_page():
     if request.method == "GET":
-        values = {"_platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+        values = {"platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
         return render_template(
             "requirements_edit.html", values=values
         )
@@ -128,19 +128,19 @@ def genre_add_page():
         genre_key = db.add_genre(genre)
         return redirect(url_for("games_page", genre_key=genre_key)) #TODO: genre_key değil game_id
 
-def genre_delete_page(genre_Id):
+def genre_delete_page(game_id):
         db = Database(get_db())
-        db.delete_genre(genre_Id)
+        db.delete_genre(game_id)
         return redirect(url_for("home_page"))
 
-def info_delete_page(gameinfo_Id):
+def info_delete_page(game_id):
         db = Database(get_db())
-        db.delete_info(gameinfo_Id)
+        db.delete_info(game_id)
         return redirect(url_for("home_page"))
 
-def requirements_delete_page(platform_Id):
+def requirements_delete_page(game_id):
         db = Database(get_db())
-        db.delete_requirements(platform_Id)
+        db.delete_requirements(game_id)
         return redirect(url_for("home_page"))
 
 
@@ -172,6 +172,48 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
             #genre = Genre(_GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
             db.update_genre(genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             return redirect(url_for("games_page", game_id=game_id)) #TODO: genre_Id değil game_id
+
+def update_info_page(game_id): #genre_Id mi game_id mi????
+        db = Database(get_db())
+        info = db.get_additional() #get_additional(game_id) ?????????
+        if request.method == "GET":
+            values = {"gameinfo_id":"","game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
+            return render_template(
+                "update_info.html", values=values, info=info
+            )
+        else:
+            gameinfo_id = request.form.data["gameinfo_id"]
+            game_id = request.form.data["game_id"]
+            background = request.form.data["background"]
+            headerimage = request.form.data["headerimage"]
+            supporturl = request.form.data["supporturl"]
+            website = request.form.data["website"]    
+            recomendationcount = request.form.data["recomendationcount"]
+            steamspyowners = request.form.data["steamspyowners"]
+            steamspyplayersestimate = request.form.data["steamspyplayersestimate"]        
+            db.update_info(gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate = int(steamspyplayersestimate) if steamspyplayersestimate else None)
+            return redirect(url_for("games_page", game_id=game_id))
+
+def update_requirements_page(game_id): #genre_Id mi game_id mi????
+        db = Database(get_db())
+        requirements = db.get_requirements(game_id)
+        if request.method == "GET":
+            values = {"platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+            return render_template(
+                "update_requirements.html", values=values, requirements=requirements
+            )
+        else:
+            platform_id = request.form.data["platform_id"]
+            game_id = request.form.data["game_id"]
+            response_id = request.form.data["response_id"]
+            platformwindows = request.form.data["platformwindows"]
+            platformlinux = request.form.data["platformlinux"]
+            platformmac = request.form.data["platformmac"]
+            pcminreqtext = request.form.data["pcminreqtext"]    
+            linuxminreqtext = request.form.data["linuxminreqtext"]
+            macminreqtext = request.form.data["macminreqtext"]    
+            db.update_requirements(platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
+            return redirect(url_for("games_page", game_id=game_id))
 
 def price_create_page():
     if request.method == "GET":

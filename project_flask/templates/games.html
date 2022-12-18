@@ -53,20 +53,20 @@ class="bg-image d-flex justify-content-center align-items-center"
 
 <div class="field is-grouped">
   <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('info_delete_page', gameinfo_Id = adds.gameinfo_Id)}}"> Delete Additional Info</a>
+    <a class="button is-danger is-small" href="{{url_for('info_delete_page', game_id = selected_game.game_id)}}"> Delete Additional Info</a>
   </div>
 </div>
 
-
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('update_info_page', game_id = selected_game.game_id)}}"> Update Additional Info</a>
+  </div>
+</div>
 
 {% endif %}
 
-
-
   <a href="/games/genre/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Genre Page</a>
   <a href="/games/requirements/{{selected_game.game_id}}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page">Platform Requirements</a>
-
-
 
 <div style="width: 50%; margin: auto">
   {% if reviews %}
@@ -89,115 +89,5 @@ class="bg-image d-flex justify-content-center align-items-center"
     </table>
   {% endif %}
 </div>
-
-
-<!--
-<div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-      <button class="accordion-button collapsed btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-        Genre
-      </button>
-    </h2>
-    {% if genre %}
-    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-      <div class="accordion-body">
-          {% if genre.GenreIsNonGame == true %}
-          <p style="font-size: 24px">Non Game</p>
-          {%endif%}
-          {% if genre.GenreIsIndie == true %}
-          <p style="font-size: 24px">Indie</p>
-          {%endif%}
-          {% if genre.GenreIsAction == true %}
-          <p style="font-size: 24px">Action</p>
-          {%endif%}
-          {% if genre.GenreIsAdventure == true %}
-          <p style="font-size: 24px">Adventure</p>
-          {%endif%}
-          {% if genre.GenreIsCasual == true %}
-          <p style="font-size: 24px">Casual</p>
-          {%endif%}
-          {% if genre.GenreIsStrategy == true %}
-          <p style="font-size: 24px">Strategy</p>
-          {%endif%}
-          {% if genre.GenreIsRPG == true %}
-          <p style="font-size: 24px">RPG</p>
-          {%endif%}
-          {% if genre.GenreIsSimulation == true %}
-          <p style="font-size: 24px">Simulation</p>
-          {%endif%}
-          {% if genre.GenreIsEarlyAccess == true %}
-          <p style="font-size: 24px">Early Access</p>
-          {%endif%}
-          {% if genre.GenreIsFreeToPlay == true %}
-          <p style="font-size: 24px">Free</p>
-          {%endif%}
-          {% if genre.GenreIsSports == true %}
-          <p style="font-size: 24px">Sports</p>
-          {%endif%}
-          {% if genre.GenreIsRacing == true %}
-          <p style="font-size: 24px">Racing</p>
-          {%endif%}
-          {% if genre.GenreIsMassivelyMultiplayer == true %}
-          <p style="font-size: 24px">Multiplayer</p>
-          {%endif%}
-
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-        </div>
-      </div>
-   
-    </div>
-    {% endif %}
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-      <button class="accordion-button collapsed btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-        Requirements
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-      <div class="accordion-body">
-        <ul class="list-group list-group-flush" class="text-center">
-          <h3>Accessible Platforms:</h3>
-          <div class="grid text-center">
-            <div class="g-col-6">
-              {% if requirements.platformwindows == true %}
-              <p style="font-size: 24px">Windows</p>
-              {%endif%}
-            </div>
-            <div class="g-col-6">
-              {% if requirements.platformlinux == true %}
-              <p style="font-size: 24px">Linux</p>
-              {%endif%}
-            </div>
-            <div class="g-col-6">
-              {% if requirements.platformmac == true %}
-              <p style="font-size: 24px">Mac</p>
-              {%endif%}
-            </div>
-          </div>
-        </ul>
-
-          <h3>Requirements:</h3>
-          <div class="grid text-center" style="--bs-columns: 3;">
-            <div>PC requirements:</div><p style="font-size: 20px">{{ requirements.pcminreqtext}}</p>
-            <div>Linux requirements:</div><p style="font-size: 20px">{{ requirements.linuxminreqtext}}</p>
-            <div>Mac requirements:</div><p style="font-size: 20px">{{ requirements.macminreqtext}}</p>
-          </div>
-
-
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Add</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Delete</button>
-          <button type="button" class="btn btn-outline-primary" onclick="location.href='#';">Update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 
 {% endblock %}

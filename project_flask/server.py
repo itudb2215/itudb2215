@@ -19,10 +19,12 @@ def create_app(debug=True):
     app.add_url_rule("/new-info", view_func=views.info_add_page, methods=["GET", "POST"]) #TODO: change url
     app.add_url_rule("/new-reqirements", view_func=views.requirements_add_page, methods=["GET", "POST"]) #TODO: change url
     app.add_url_rule("/new-genre", view_func=views.genre_add_page, methods=["GET", "POST"]) #TODO: change url
-    app.add_url_rule("/delete-info/<gameinfo_Id>", view_func=views.info_delete_page)
-    app.add_url_rule("/delete-requirements/<platform_Id>", view_func=views.requirements_delete_page)
-    app.add_url_rule("/delete-genre/<genre_Id>", view_func=views.genre_delete_page)
+    app.add_url_rule("/delete-info/<game_id>", view_func=views.info_delete_page)
+    app.add_url_rule("/delete-requirements/<game_id>", view_func=views.requirements_delete_page)
+    app.add_url_rule("/delete-genre/<game_id>", view_func=views.genre_delete_page)
     app.add_url_rule("/update-genre/<game_id>", view_func=views.update_genre_page)
+    app.add_url_rule("/update-info/<game_id>", view_func=views.update_info_page)
+    app.add_url_rule("/update-requirements/<game_id>", view_func=views.update_requirements_page)
     app.add_url_rule("/price_info_delete/<price_Id>", view_func=views.price_delete_page)
     app.add_url_rule("/price_info_create/<price_Id>", view_func=views.price_create_page, methods=["GET", "POST"])
     app.add_url_rule("/price_info_update/<game_id>", view_func=views.price_update_page)

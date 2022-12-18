@@ -47,9 +47,16 @@
   {%endif%}
 </ul>
 
+<!--
 <div class="field is-grouped">
   <div class="control">
-    <a class="button is-danger is-small" href="{{url_for('genre_delete_page', genre_Id = genre.genre_Id)}}"> Delete Genre</a>
+    <a class="button is-danger is-small" href="{{url_for('genre_delete_page', game_id = selected_game.game_id)}}"> Delete Genre</a>
+  </div>
+</div>
+-->
+<div class="field is-grouped">
+  <div class="control">
+    <a class="button is-danger is-small" href="{{url_for('update_genre_page', game_id = selected_game.game_id)}}"> Update Genre</a>
   </div>
 </div>
 

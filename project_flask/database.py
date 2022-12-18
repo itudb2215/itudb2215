@@ -153,24 +153,24 @@ class Database:
                 cursor.execute(query)
                 return i
 
-    def delete_genre(self, genre_id):
+    def delete_genre(self, game_id):
         with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
-            query = "DELETE FROM Genre WHERE genre_id = '{}'".format(genre_id)
+            query = "DELETE FROM Genre WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
             connection.commit()
 
-    def delete_info(self, gameinfo_id):
+    def delete_info(self, game_id):
         with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
-            query = "DELETE FROM Additional_game_info WHERE gameinfo_id = '{}'".format(gameinfo_id)
+            query = "DELETE FROM Additional_game_info WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
             connection.commit()
 
-    def delete_requirements(self, platform_id):
+    def delete_requirements(self, game_id):
         with dbapi2.connect(self.dbfile) as connection:
             cursor = self.connection.cursor()
-            query = "DELETE FROM Platform_Requirements WHERE platform_id = '{}'".format(platform_id)
+            query = "DELETE FROM Platform_Requirements WHERE game_id = '{}'".format(game_id)
             cursor.execute(query)
             connection.commit()
 
@@ -182,6 +182,21 @@ class Database:
             query = "UPDATE Genre SET GenreIsNonGame = {} AND GenreIsIndie = {} AND GenreIsAction = {} AND GenreIsAdventure = {} AND GenreIsCasual = {} AND GenreIsStrategy = {} AND GenreIsRPG = {} AND GenreIsSimulation = {} AND GenreIsEarlyAccess = {} AND GenreIsFreeToPlay = {} AND GenreIsSports = {} AND GenreIsRacing = {}  AND GenreIsMassivelyMultiplayer = {} WHERE  game_id = '{}'".format(GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             cursor.execute(query)
             connection.commit()
+
+    def update_info(self, gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Additional_game_info SET background = {} AND headerimage = {} AND supporturl = {} AND website = {} AND recomendationcount = {} AND steamspyowners = {} AND steamspyplayersestimate = {} WHERE  game_id = '{}'".format(background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
+            cursor.execute(query)
+            connection.commit()
+
+    def update_requirements(self, platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext):
+        with dbapi2.connect(self.dbfile) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Platform_Requirements SET platformwindows = {} AND platformlinux = {} AND platformmac = {} AND pcminreqtext = {} AND linuxminreqtext = {} AND macminreqtext = {} WHERE  game_id = '{}'".format(response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
+            cursor.execute(query)
+            connection.commit()
+
 
     def price_info_create(self, price_info):
         cursor = self.conencion.cursor()
