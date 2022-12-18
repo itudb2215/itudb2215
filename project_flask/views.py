@@ -143,70 +143,63 @@ def update_genre_page(game_id): #genre_Id mi game_id mi????
         db = Database(get_db())
         genre = db.get_genre(game_id)   
         if request.method == "GET":
-            values = {"genre_id":"","game_id": "", "GenreIsNonGame": "", "GenreIsIndie": "","GenreIsAction": "","GenreIsAdventure": "","GenreIsCasual": "","GenreIsStrategy": "","GenreIsRPG": "","GenreIsSimulation": "","GenreIsEarlyAccess": "","GenreIsFreeToPlay": "","GenreIsSports": "","GenreIsRacing": "","GenreIsMassivelyMultiplayer": ""}
+            values = {"GenreIsNonGame": "", "GenreIsIndie": "","GenreIsAction": "","GenreIsAdventure": "","GenreIsCasual": "","GenreIsStrategy": "","GenreIsRPG": "","GenreIsSimulation": "","GenreIsEarlyAccess": "","GenreIsFreeToPlay": "","GenreIsSports": "","GenreIsRacing": "","GenreIsMassivelyMultiplayer": ""}
             return render_template(
                 "update_genre.html", values=values, genre = genre
             )
         else:
-            genre_id = request.form["genre_id"]
-            game_id = request.form["game_id"]
-            GenreIsNonGame = request.form.data["GenreIsNonGame"]
-            GenreIsIndie = request.form.data["GenreIsIndie"]
-            GenreIsAction = request.form.data["GenreIsAction"]
-            GenreIsAdventure = request.form.data["GenreIsAdventure"]
-            GenreIsCasual = request.form.data["GenreIsCasual"]
-            GenreIsStrategy = request.form.data["GenreIsStrategy"]    
-            GenreIsRPG = request.form.data["GenreIsRPG"]
-            GenreIsSimulation = request.form.data["GenreIsSimulation"]    
-            GenreIsEarlyAccess = request.form.data["GenreIsEarlyAccess"]
-            GenreIsFreeToPlay = request.form.data["GenreIsFreeToPlay"]
-            GenreIsSports = request.form.data["GenreIsSports"]    
-            GenreIsRacing = request.form.data["GenreIsRacing"]
-            GenreIsMassivelyMultiplayer = request.form.data["GenreIsMassivelyMultiplayer"] 
+            GenreIsNonGame = request.form["GenreIsNonGame"]
+            GenreIsIndie = request.form["GenreIsIndie"]
+            GenreIsAction = request.form["GenreIsAction"]
+            GenreIsAdventure = request.form["GenreIsAdventure"]
+            GenreIsCasual = request.form["GenreIsCasual"]
+            GenreIsStrategy = request.form["GenreIsStrategy"]    
+            GenreIsRPG = request.form["GenreIsRPG"]
+            GenreIsSimulation = request.form["GenreIsSimulation"]    
+            GenreIsEarlyAccess = request.form["GenreIsEarlyAccess"]
+            GenreIsFreeToPlay = request.form["GenreIsFreeToPlay"]
+            GenreIsSports = request.form["GenreIsSports"]    
+            GenreIsRacing = request.form["GenreIsRacing"]
+            GenreIsMassivelyMultiplayer = request.form["GenreIsMassivelyMultiplayer"] 
             #genre = Genre(_GenreIsNonGame, _GenreIsIndie, _GenreIsAction, _GenreIsAdventure, _GenreIsCasual, _GenreIsStrategy, _GenreIsRPG, _GenreIsSimulation, _GenreIsEarlyAccess, _GenreIsFreeToPlay, _GenreIsSports, _GenreIsRacing, _GenreIsMassivelyMultiplayer )
-            db.update_genre(genre_id, game_id, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
+            db.update_genre(1, 1, GenreIsNonGame, GenreIsIndie,GenreIsAction, GenreIsAdventure, GenreIsCasual,GenreIsStrategy,GenreIsRPG,GenreIsSimulation,GenreIsEarlyAccess,GenreIsFreeToPlay,GenreIsSports,GenreIsRacing,GenreIsMassivelyMultiplayer)
             return redirect(url_for("games_page", game_id=game_id)) #TODO: genre_Id değil game_id
 
 def update_info_page(game_id): #genre_Id mi game_id mi????
         db = Database(get_db())
         info = db.get_additional() #get_additional(game_id)
         if request.method == "GET":
-            values = {"gameinfo_id":"","game_id": "", "background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
+            values = {"background": "", "headerimage": "","supporturl": "","website": "","recomendationcount": "","steamspyowners": "","steamspyplayersestimate": ""}
             return render_template(
                 "update_info.html", values=values, info=info
             )
         else:
-            gameinfo_id = request.form.data["gameinfo_id"]
-            game_id = request.form.data["game_id"]
-            background = request.form.data["background"]
-            headerimage = request.form.data["headerimage"]
-            supporturl = request.form.data["supporturl"]
-            website = request.form.data["website"]    
-            recomendationcount = request.form.data["recomendationcount"]
-            steamspyowners = request.form.data["steamspyowners"]
-            steamspyplayersestimate = request.form.data["steamspyplayersestimate"]        
-            db.update_info(gameinfo_id, game_id, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate = int(steamspyplayersestimate) if steamspyplayersestimate else None)
+            background = request.form["background"]
+            headerimage = request.form["headerimage"]
+            supporturl = request.form["supporturl"]
+            website = request.form["website"]    
+            recomendationcount = request.form["recomendationcount"]
+            steamspyowners = request.form["steamspyowners"]
+            steamspyplayersestimate = request.form["steamspyplayersestimate"]        
+            db.update_info(1, 1, background, headerimage, supporturl, website, recomendationcount, steamspyowners, steamspyplayersestimate)
             return redirect(url_for("games_page", game_id=game_id))
 
 def update_requirements_page(game_id): #genre_Id mi game_id mi????
         db = Database(get_db())
         requirements = db.get_requirements(game_id)
         if request.method == "GET":
-            values = {"platform_id": "","game_id": "", "response_id": "", "platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
+            values = {"platformwindows": "","platformlinux": "","platformmac": "","pcminreqtext": "","linuxminreqtext": "","macminreqtext": ""}
             return render_template(
                 "update_requirements.html", values=values, requirements=requirements
             )
         else:
-            platform_id = request.form.data["platform_id"]
-            game_id = request.form.data["game_id"]
-            response_id = request.form.data["response_id"]
-            platformwindows = request.form.data["platformwindows"]
-            platformlinux = request.form.data["platformlinux"]
-            platformmac = request.form.data["platformmac"]
-            pcminreqtext = request.form.data["pcminreqtext"]    
-            linuxminreqtext = request.form.data["linuxminreqtext"]
-            macminreqtext = request.form.data["macminreqtext"]    
-            db.update_requirements(platform_id, game_id, response_id, platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
+            platformwindows = request.form["platformwindows"]
+            platformlinux = request.form["platformlinux"]
+            platformmac = request.form["platformmac"]
+            pcminreqtext = request.form["pcminreqtext"]    
+            linuxminreqtext = request.form["linuxminreqtext"]
+            macminreqtext = request.form["macminreqtext"]    
+            db.update_requirements(1,1,1,platformwindows, platformlinux, platformmac, pcminreqtext, linuxminreqtext, macminreqtext)
             return redirect(url_for("games_page", game_id=game_id))
 
 def price_create_page():
