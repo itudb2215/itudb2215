@@ -6,4 +6,12 @@ WEEK 10 (Nov 28 - Dec 4):
 - Dataset csv files are added to the postgre server
 
 WEEK 11
-- All tables are created and their data are imported from csv datasets 
+- All tables are created and their data are imported from csv datasets with the imprt.py file
+- SQL queries for the tables are written
+- Tables and their html pages are created
+- Bootstrap is added and used for frontend
+- Paths and connections to the pages and navbar added
+- CRUD operation forms are created
+- CRUD operations are finalized and their query's are written
+- session is added where last visited game id can be seen
+- default validation is added
