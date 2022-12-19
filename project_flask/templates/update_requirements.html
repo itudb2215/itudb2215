@@ -27,28 +27,18 @@
               <input type="checkbox" name="platformmac" value="False" /> No<br>
             </div>
           </div>
-    
-          <div class="field">
-            <label for="title" class="label">PC minimum requirements</label>
-            <div class="control">
-              <input type="text" name="pcminreqtext" class="input" value="{{requirements.pcminreqtext}}"/>
-            </div>
-          </div>
-    
-          <div class="field">
-            <label for="title" class="label">Linux minimum requirements</label>
-            <div class="control">
-              <input type="text" name="linuxminreqtext" class="input" value="{{requirements.linuxminreqtext}}"/>
-            </div>
-          </div>
-    
-          <div class="field">
-            <label for="title" class="label">Mac minimum requirements</label>
-            <div class="control">
-              <input type="text" name="macminreqtext" class="input" value="{{requirements.macminreqtext}}"/>
-            </div>
-          </div>
-    
+
+          <p><label for="title">PC minimum requirements:</label></p>
+          <textarea id="title" name="pcminreqtext" rows="4" cols="50" class="input" value="{{requirements.pcminreqtext}}">{{requirements.pcminreqtext}}</textarea>
+          <br>    
+
+          <p><label for="title">Linux minimum requirements:</label></p>
+          <textarea id="title" name="linuxminreqtext" rows="4" cols="50" class="input" value="{{requirements.linuxminreqtext}}">{{requirements.linuxminreqtext}}</textarea>
+          <br>
+
+          <p><label for="title">Mac minimum requirements:</label></p>
+          <textarea id="title" name="macminreqtext" rows="4" cols="50" class="input" value="{{requirements.macminreqtext}}">{{requirements.macminreqtext}}</textarea>
+          <br>
     
           <div class="field is-grouped">
             <div class="control">

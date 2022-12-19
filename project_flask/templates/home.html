@@ -7,7 +7,7 @@
 <p>Have a nice {{ day }}!</p>
 
 <a href="{{ url_for('game_insert_page') }}" class="btn btn-primary btn btn-warning btn-lg" aria-current="page"> Insert a new game</a>
-<p>Last game {{last_game}}</p>
+<p>Last visited game id {{last_game}}</p>
 
 <div style="width: 50%; margin: auto">
   {% if games %}
@@ -20,6 +20,7 @@
           {% endif %}
     <div style="padding: 10px; background-color:  {{ bg_color }}; margin: 20px">
       <p>#{{ loop.index }}</p>
+      <p style="font-size: 16px">ID: {{ game.game_id }}</p>
       <p style="font-size: 24px">{{ game.query_name }}</p>
       <p style="font-size: 16px">{{ game.release_date }}</p>
       <p style="font-size: 16px">Required Age: {{ game.required_age }} Metacritic: {{ game.metacritic }}</p>
